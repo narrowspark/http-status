@@ -6,10 +6,10 @@
         "psr-7", "psr7", "http", "status", "http-status"
     ],
     "license"    : "MIT",
-    "homepage"   : "https://github.com/narrowspark/arr",
+    "homepage"   : "https://github.com/narrowspark/http-status",
     "support"    : {
-        "issues"      : "https://github.com/narrowspark/arr/issues",
-        "source"      : "https://github.com/narrowspark/arr"
+        "issues"      : "https://github.com/narrowspark/http-status/issues",
+        "source"      : "https://github.com/narrowspark/http-status"
     },
     "authors"    : [
         {
@@ -23,7 +23,7 @@
         "php"                                  : "^5.6 || ^7.0"
     },
     "require-dev": {
-        "narrowspark/http-status"      : "^1.4",
+        "narrowspark/php-cs-fixer-config"      : "^1.4",
         "mockery/mockery"                      : "^0.9",
         "phpunit/phpunit"                      : "^5.1"
     },
