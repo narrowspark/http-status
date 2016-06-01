@@ -1,0 +1,49 @@
+{
+    "name"       : "narrowspark/http-status",
+    "type"       : "library",
+    "description": " A psr-7 package for working with HTTP statuses.",
+    "keywords"   : [
+        "psr-7", "psr7", "http", "status", "http-status"
+    ],
+    "license"    : "MIT",
+    "homepage"   : "https://github.com/narrowspark/arr",
+    "support"    : {
+        "issues"      : "https://github.com/narrowspark/arr/issues",
+        "source"      : "https://github.com/narrowspark/arr"
+    },
+    "authors"    : [
+        {
+            "name"    : "Daniel Bannert",
+            "email"   : "d.bannert@anolilab.de",
+            "homepage": "http://anolilab.de",
+            "role"    : "Developer"
+        }
+    ],
+    "require": {
+        "php"                                  : "^5.6 || ^7.0"
+    },
+    "require-dev": {
+        "narrowspark/http-status"      : "^1.4",
+        "mockery/mockery"                      : "^0.9",
+        "phpunit/phpunit"                      : "^5.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Narrowspark\\HttpStatus\\"        : "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Narrowspark\\HttpStatus\\Tests\\" : "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master"                       : "1.0-dev"
+        }
+    },
+    "suggest": {
+    },
+    "minimum-stability"                        : "dev",
+    "prefer-stable"                            : true
+}
