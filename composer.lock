@@ -4,9 +4,59 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0cfb2a3b970039e1d6b8635263a0bc58",
-    "content-hash": "43aeabd6f06f8cf8b263c989c0a54f9c",
-    "packages": [],
+    "hash": "4b761624ca0f85d36314f8c79780ccf1",
+    "content-hash": "7dff46ed70343dcc0a4b32ea0c418394",
+    "packages": [
+        {
+            "name": "psr/http-message",
+            "version": "1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/http-message.git",
+                "reference": "85d63699f0dbedb190bbd4b0d2b9dc707ea4c298"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/http-message/zipball/85d63699f0dbedb190bbd4b0d2b9dc707ea4c298",
+                "reference": "85d63699f0dbedb190bbd4b0d2b9dc707ea4c298",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Http\\Message\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for HTTP messages",
+            "keywords": [
+                "http",
+                "http-message",
+                "psr",
+                "psr-7",
+                "request",
+                "response"
+            ],
+            "time": "2015-05-04 20:22:00"
+        }
+    ],
     "packages-dev": [
         {
             "name": "doctrine/instantiator",
@@ -275,16 +325,16 @@
             "time": "2015-11-20 12:04:31"
         },
         {
-            "name": "narrowspark/http-status",
+            "name": "narrowspark/php-cs-fixer-config",
             "version": "v1.4.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/narrowspark/http-status.git",
+                "url": "https://github.com/narrowspark/php-cs-fixer-config.git",
                 "reference": "1b91ec2ec9d9b1ff38c4ebfeeec7bc9b75b1b980"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/narrowspark/http-status/zipball/1b91ec2ec9d9b1ff38c4ebfeeec7bc9b75b1b980",
+                "url": "https://api.github.com/repos/narrowspark/php-cs-fixer-config/zipball/1b91ec2ec9d9b1ff38c4ebfeeec7bc9b75b1b980",
                 "reference": "1b91ec2ec9d9b1ff38c4ebfeeec7bc9b75b1b980",
                 "shasum": ""
             },
@@ -314,7 +364,7 @@
                 }
             ],
             "description": "Provides a configuration for friendsofphp/php-cs-fixer, used within Narrowspark.",
-            "homepage": "https://github.com/narrowspark/http-status",
+            "homepage": "https://github.com/narrowspark/php-cs-fixer-config",
             "keywords": [
                 "config",
                 "cs",

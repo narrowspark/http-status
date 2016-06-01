@@ -5,11 +5,11 @@ sudo: false
 php:
   - 5.6
   - 7.0
-  - nightly
+  - hhvm
 
 matrix:
   allow_failures:
-    - php: nightly
+    - php: hhvm
   fast_finish: true
 
 cache:
