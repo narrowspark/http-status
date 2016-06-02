@@ -1,10 +1,10 @@
 <?php
 namespace Narrowspark\HttpStatus\Tests;
 
-use Narrowspark\HttpStatus\StatusCode;
+use Narrowspark\HttpStatus\HttpStatus;
 use Narrowspark\HttpStatus\Exception;
 
-class StatusCodeTest extends \PHPUnit_Framework_TestCase
+class HttpStatusTest extends \PHPUnit_Framework_TestCase
 {
     private $phrases = [
         //Informational 1xx
@@ -121,8 +121,8 @@ class StatusCodeTest extends \PHPUnit_Framework_TestCase
         foreach ($this->phrases as $code => $text) {
             $this->assertSame(
                 $text,
-                StatusCode::getReasonPhrase($code),
-                'Expected StatusCode::getReasonPhrase(' . $code . ') to return ' . $text
+                HttpStatus::getReasonPhrase($code),
+                'Expected HttpStatus::getReasonPhrase(' . $code . ') to return ' . $text
             );
         }
     }
@@ -133,7 +133,7 @@ class StatusCodeTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetReasonPhraseToThrowInvalidArgumentException()
     {
-        StatusCode::getReasonPhrase(700);
+        HttpStatus::getReasonPhrase(700);
     }
 
     /**
@@ -142,25 +142,25 @@ class StatusCodeTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetReasonPhraseToThrowOutOfBoundsException()
     {
-        StatusCode::getReasonPhrase(509);
+        HttpStatus::getReasonPhrase(509);
     }
 
     public function testGetReasonException()
     {
         foreach ($this->phrases as $code => $text) {
             try {
-                StatusCode::getReasonException($code);
+                HttpStatus::getReasonException($code);
             } catch (\Exception $exception) {
                 $this->assertSame(
                     $code . ' ' . $text,
                     $exception->getMessage(),
-                    'Expected StatusCode::getReasonException(' . $code . ') to return ' . $text
+                    'Expected HttpStatus::getReasonException(' . $code . ') to return ' . $text
                 );
 
                 $this->assertSame(
                     $code,
                     $exception->getCode(),
-                    'Expected StatusCode::getReasonException(' . $code . ') to return ' . $text
+                    'Expected HttpStatus::getReasonException(' . $code . ') to return ' . $text
                 );
             }
         }
@@ -168,13 +168,13 @@ class StatusCodeTest extends \PHPUnit_Framework_TestCase
 
     public function testIfAllExceptionsAreExtendetFromTheRightClient()
     {
-        $status = new StatusCode();
+        $status = new HttpStatus();
         $clientCount = 0;
         $serverCount = 0;
 
         foreach ($this->phrases as $code => $text) {
             try {
-                StatusCode::getReasonException($code);
+                HttpStatus::getReasonException($code);
             } catch (Exception\AbstractClientErrorException $client) {
                 ++$clientCount;
             } catch (Exception\AbstractServerErrorException $server) {

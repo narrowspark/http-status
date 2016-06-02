@@ -5,7 +5,7 @@ use InvalidArgumentException;
 use Narrowspark\HttpStatus\Exception;
 use OutOfBoundsException;
 
-class StatusCode
+class HttpStatus
 {
     /**
      * Allowed range for a valid HTTP status code

@@ -22,6 +22,18 @@ $ composer require narrowspark/http-status
 
 ``` php
 
+use Narrowspark\HttpStatus\HttpStatus;
+
+// get status text from code
+echo HttpStatus::getReasonPhrase(301); // Moved Permanently
+
+try {
+    HttpStatus::getReasonException(301):
+} catch(/Exception $e) {
+    echo $e->getMessage(); // 301 Moved Permanently
+    echo $e->getCode(); // 301
+}
+
 ```
 
 ## HTTP status code classes ([from RFC7231](https://tools.ietf.org/html/rfc7231#section-6))
