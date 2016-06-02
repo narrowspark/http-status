@@ -124,15 +124,6 @@ class HttpStatus
     ];
 
     /**
-     * Private constructor; non-instantiable.
-     *
-     * @codeCoverageIgnore
-     */
-    private function __construct()
-    {
-    }
-
-    /**
      * Array of standard HTTP status code/reason exceptions.
      *
      * @var array
@@ -177,6 +168,15 @@ class HttpStatus
         510 => NotExtendedException::class,
         511 => NetworkAuthenticationRequiredException::class,
     ];
+
+    /**
+     * Private constructor; non-instantiable.
+     *
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
 
     /**
      * Get the text for a given status code.
