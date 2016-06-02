@@ -2,8 +2,8 @@
 namespace Narrowspark\HttpStatus;
 
 use InvalidArgumentException;
-use OutOfBoundsException;
 use Narrowspark\HttpStatus\Exception;
+use OutOfBoundsException;
 
 class StatusCode
 {
@@ -170,7 +170,7 @@ class StatusCode
         }
 
         if (isset(static::$phrasesExceptions[$code])) {
-            throw new static::$phrasesExceptions[$code];
+            throw new static::$phrasesExceptions[$code]();
         }
     }
 
