@@ -219,7 +219,7 @@ class HttpStatus
      *
      * @return int
      */
-    protected static function filterStatusCode($code)
+    public static function filterStatusCode($code)
     {
         $code = filter_var($code, FILTER_VALIDATE_INT, ['options' => [
             'min_range' => self::MINIMUM,
