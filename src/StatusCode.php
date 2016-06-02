@@ -170,7 +170,7 @@ class StatusCode
         }
 
         if (isset(self::$phrasesExceptions[$code])) {
-            throw new self::$phrasesExceptions[$code];
+            throw new self::$phrasesExceptions[$code]();
         }
     }
 
