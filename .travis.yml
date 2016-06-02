@@ -7,11 +7,12 @@ php:
   - 7.0
 
 matrix:
-  php: hhvm
-    sudo: required
-    dist: trusty
-    group: edge
-
+  include:
+    # Use the newer stack for HHVM as HHVM does not support Precise anymore since a long time and so Precise has an outdated version
+    - php: hhvm
+      sudo: required
+      dist: trusty
+      group: edge
   allow_failures:
     - php: hhvm
   fast_finish: true
