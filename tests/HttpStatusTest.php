@@ -168,7 +168,6 @@ class HttpStatusTest extends \PHPUnit_Framework_TestCase
 
     public function testIfAllExceptionsAreExtendetFromTheRightClient()
     {
-        $status = new HttpStatus();
         $clientCount = 0;
         $serverCount = 0;
 
