@@ -14,11 +14,11 @@ class StatusCode
     const MAXIMUM = 599;
 
     /**
-     * Map of standard HTTP status code/reason phrases.
+     * Array of standard HTTP status code/reason phrases.
      *
      * @var array
      */
-    private static $phrases = [
+    private $phrases = [
         100 => 'Continue',
         101 => 'Switching Protocols',
         102 => 'Processing',
@@ -80,11 +80,11 @@ class StatusCode
     ];
 
     /**
-     * Map of standard HTTP status code/reason exceptions.
+     * Array of standard HTTP status code/reason exceptions.
      *
      * @var array
      */
-    private static $phrasesExceptions = [
+    private $phrasesExceptions = [
         400 => Exception\BadRequestException::class,
         401 => Exception\UnauthorizedException::class,
         402 => Exception\PaymentRequiredException::class,
@@ -126,42 +126,55 @@ class StatusCode
     ];
 
     /**
-     * Get the text for a given status code
+     * Create a new StatusCode Instance.
      *
-     * @param int $statusCode http status code
+     * @param array $status a array of HTTP status code and
+     *                      their associated reason phrase.
      *
-     * @throws InvalidArgumentException If the requested $statusCode is not valid
-     * @throws OutOfBoundsException     If the requested $statusCode is not found
+     * @throws InvalidArgumentException if the collection is not valid
+     */
+    public function __construct(array $status = [])
+    {
+
+    }
+
+    /**
+     * Get the text for a given status code.
+     *
+     * @param int $code http status code
+     *
+     * @throws InvalidArgumentException If the requested $code is not valid
+     * @throws OutOfBoundsException     If the requested $code is not found
      *
      * @return string Returns text for the given status code
      */
-    public static function getReasonPhrase($code)
+    public function getReasonPhrase($code)
     {
-        $code = static::filterStatusCode($code);
+        $code = $this->filterStatusCode($code);
 
-        if (! isset(static::$phrases[$code])) {
+        if (! isset($this->phrases[$code])) {
             throw new OutOfBoundsException(sprintf('Unknown http status code: `%s`', $code));
         }
 
-        return static::$phrases[$code];
+        return $this->phrases[$code];
     }
 
     /**
      * Get the text for a given status code
      *
-     * @param int $statusCode http status code
+     * @param int $code http status code
      *
      * @throws InvalidArgumentException
      */
-    public static function getReasonPhraseException($code)
+    public function getReasonPhraseException($code)
     {
-        $code = static::filterStatusCode($code);
+        $code = $this->filterStatusCode($code);
 
-        if (! isset(static::$phrases[$code])) {
+        if (! isset($this->phrases[$code])) {
             throw new OutOfBoundsException(sprintf('Unknown http status code: `%s`', $code));
         }
 
-        if (isset(static::$phrasesExceptions[$code])) {
+        if (isset($this->phrasesExceptions[$code])) {
             throw new static::$phrasesExceptions[$code];
         }
     }
@@ -175,7 +188,7 @@ class StatusCode
      *
      * @return int
      */
-    protected static function filterStatusCode($code)
+    protected function filterStatusCode($code)
     {
         $code = filter_var($code, FILTER_VALIDATE_INT, ['options' => [
             'min_range' => self::MINIMUM,

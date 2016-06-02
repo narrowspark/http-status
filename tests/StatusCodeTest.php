@@ -68,10 +68,12 @@ class StatusCodeTest extends \PHPUnit_Framework_TestCase
 
     public function testGetReasonPhrase()
     {
+        $status = new StatusCode();
+
         foreach ($this->phrases as $code => $text) {
             $this->assertSame(
                 $text,
-                StatusCode::getReasonPhrase($code),
+                $status->getReasonPhrase($code),
                 'Expected StatusCode::getReasonPhrase(' . $code . ') to return ' . $text
             );
         }
