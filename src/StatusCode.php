@@ -147,11 +147,11 @@ class StatusCode
     {
         $code = static::filterStatusCode($code);
 
-        if (! isset(static::$phrases[$code])) {
+        if (! isset(self::$phrases[$code])) {
             throw new OutOfBoundsException(sprintf('Unknown http status code: `%s`.', $code));
         }
 
-        return static::$phrases[$code];
+        return self::$phrases[$code];
     }
 
     /**
@@ -165,12 +165,17 @@ class StatusCode
     {
         $code = static::filterStatusCode($code);
 
-        if (! isset(static::$phrases[$code])) {
+        if (! isset(self::$phrases[$code])) {
             throw new OutOfBoundsException(sprintf('Unknown http status code: `%s`', $code));
         }
 
+<<<<<<< 4ee2ccad1ad4fb875bd0d1cbaf5da6e543561206
         if (isset(static::$phrasesExceptions[$code])) {
             throw new static::$phrasesExceptions[$code]();
+=======
+        if (isset(self::$phrasesExceptions[$code])) {
+            throw new self::$phrasesExceptions[$code];
+>>>>>>> 19b18b82882ee578c1f32b16b5d6aedb5459a2ad
         }
     }
 
