@@ -5,9 +5,13 @@ sudo: false
 php:
   - 5.6
   - 7.0
-  - hhvm
 
 matrix:
+  php: hhvm
+    sudo: required
+    dist: trusty
+    group: edge
+
   allow_failures:
     - php: hhvm
   fast_finish: true
