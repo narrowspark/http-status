@@ -3,6 +3,7 @@ namespace Narrowspark\HttpStatus;
 
 use InvalidArgumentException;
 use OutOfBoundsException;
+use Narrowspark\HttpStatus\Exception;
 
 class StatusCode
 {
@@ -79,6 +80,72 @@ class StatusCode
     ];
 
     /**
+     * Map of standard HTTP status code/reason exceptions.
+     *
+     * @var array
+     */
+    private static $phrasesExceptions = [
+        100 => 'Continue',
+        101 => 'Switching Protocols',
+        102 => 'Processing',
+        200 => 'OK',
+        201 => 'Created',
+        202 => 'Accepted',
+        203 => 'Non-Authoritative Information',
+        204 => 'No Content',
+        205 => 'Reset Content',
+        206 => 'Partial Content',
+        207 => 'Multi-status',
+        208 => 'Already Reported',
+        300 => 'Multiple Choices',
+        301 => 'Moved Permanently',
+        302 => 'Found',
+        303 => 'See Other',
+        304 => 'Not Modified',
+        305 => 'Use Proxy',
+        306 => 'Switch Proxy',
+        307 => 'Temporary Redirect',
+        400 => Exception\BadRequestException::class,
+        401 => Exception\UnauthorizedException::class,
+        402 => Exception\PaymentRequiredException::class,
+        403 => Exception\ForbiddenException::class,
+        404 => Exception\NotFoundException::class,
+        405 => Exception\MethodNotAllowedException::class,
+        406 => Exception\NotAcceptableException::class,
+        407 => Exception\ProxyAuthenticationRequiredException::class,
+        408 => Exception\RequestTimeoutException::class,
+        409 => Exception\ConflictException::class,
+        410 => Exception\GoneException::class,
+        411 => Exception\LengthRequiredException::class,
+        412 => Exception\PreconditionFailedException::class,
+        413 => Exception\RequestEntityTooLargeException::class,
+        414 => Exception\RequestUriTooLongException::class,
+        415 => Exception\UnsupportedMediaTypeException::class,
+        416 => Exception\RequestedRangeNotSatisfiableException::class,
+        417 => Exception\ExpectationFailedException::class,
+        418 => 'I\'m a teapot',
+        422 => 'Unprocessable Entity',
+        423 => 'Locked',
+        424 => 'Failed Dependency',
+        425 => 'Unordered Collection',
+        426 => 'Upgrade Required',
+        428 => 'Precondition Required',
+        429 => 'Too Many Requests',
+        431 => 'Request Header Fields Too Large',
+        451 => 'Unavailable For Legal Reasons',
+        500 => Exception\InternalServerErrorException::class,
+        501 => Exception\NotImplementedException::class,
+        502 => Exception\BadGatewayException::class,
+        503 => Exception\ServiceUnavailableException::class,
+        504 => Exception\GatewayTimeoutException::class,
+        505 => Exception\HttpVersionNotSupportedException::class,
+        506 => 'Variant Also Negotiates',
+        507 => 'Insufficient Storage',
+        508 => 'Loop Detected',
+        511 => 'Network Authentication Required',
+    ];
+
+    /**
      * Get the text for a given status code
      *
      * @param int $statusCode http status code
@@ -97,6 +164,27 @@ class StatusCode
         }
 
         return static::$phrases[$code];
+    }
+
+    /**
+     * Get the text for a given status code
+     *
+     * @param int $statusCode http status code
+     *
+     * @throws InvalidArgumentException If the requested $statusCode is not valid
+     * @throws OutOfBoundsException     If the requested $statusCode is not found
+     *
+     * @return string Returns text for the given status code
+     */
+    public static function getReasonPhraseException($code)
+    {
+        $code = static::filterStatusCode($code);
+
+        if (! isset(static::$phrasesExceptions[$code])) {
+            throw new OutOfBoundsException(sprintf('Unknown http status code: `%s`', $code));
+        }
+
+        throw static::$phrasesExceptions[$code];
     }
 
     /**
