@@ -1,23 +1,11 @@
 <?php
-namespace Narrowspark\HttpStatus;
+namespace Narrowspark\HttpStatus\Tests;
 
-use InvalidArgumentException;
-use OutOfBoundsException;
+use Narrowspark\HttpStatus\StatusCode;
 
-class StatusCode
+class StatusCodeTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * Allowed range for a valid HTTP status code
-     */
-    const MINIMUM = 100;
-    const MAXIMUM = 599;
-
-    /**
-     * Map of standard HTTP status code/reason phrases.
-     *
-     * @var array
-     */
-    private static $phrases = [
+    private $phrases = [
         100 => 'Continue',
         101 => 'Switching Protocols',
         102 => 'Processing',
@@ -78,49 +66,14 @@ class StatusCode
         511 => 'Network Authentication Required',
     ];
 
-    /**
-     * Get the text for a given status code
-     *
-     * @param int $statusCode http status code
-     *
-     * @throws InvalidArgumentException If the requested $statusCode is not valid
-     * @throws OutOfBoundsException     If the requested $statusCode is not found
-     *
-     * @return string Returns text for the given status code
-     */
-    public static function getReasonPhrase(int $code): string
+    public function testGetReasonPhrase()
     {
-        $code = static::filterStatusCode($code);
-
-        if (!isset(static::$phrases[$code])) {
-            throw new OutOfBoundsException(sprintf('Unknown http status code: `%s`', $code));
-        }
-
-        return static::$phrases[$code];
-    }
-
-    /**
-     * Filter a HTTP Status code
-     *
-     * @param int $code
-     *
-     * @throws InvalidArgumentException if the HTTP status code is invalid
-     *
-     * @return int
-     */
-    protected static function filterStatusCode(int $code): int
-    {
-        $code = filter_var($code, FILTER_VALIDATE_INT, ['options' => [
-            'min_range' => self::MINIMUM,
-            'max_range' => self::MAXIMUM,
-        ]]);
-
-        if (!$code) {
-            throw new InvalidArgumentException(
-                'The submitted code must be a positive integer between ' . self::MINIMUM . ' and ' . self::MAXIMUM
+        foreach ($this->phrases as $code => $text) {
+            $this->assertSame(
+                $text,
+                StatusCode::getReasonPhrase($code),
+                'Expected StatusCode::getReasonPhrase(' . $code . ') to return ' . $text
             );
         }
-
-        return $code;
     }
 }
