@@ -88,11 +88,11 @@ class StatusCode
      *
      * @return string Returns text for the given status code
      */
-    public static function getReasonPhrase(int $code): string
+    public static function getReasonPhrase($code)
     {
         $code = static::filterStatusCode($code);
 
-        if (!isset(static::$phrases[$code])) {
+        if (! isset(static::$phrases[$code])) {
             throw new OutOfBoundsException(sprintf('Unknown http status code: `%s`', $code));
         }
 
@@ -108,14 +108,14 @@ class StatusCode
      *
      * @return int
      */
-    protected static function filterStatusCode(int $code): int
+    protected static function filterStatusCode($code)
     {
         $code = filter_var($code, FILTER_VALIDATE_INT, ['options' => [
             'min_range' => self::MINIMUM,
             'max_range' => self::MAXIMUM,
         ]]);
 
-        if (!$code) {
+        if (! $code) {
             throw new InvalidArgumentException(
                 'The submitted code must be a positive integer between ' . self::MINIMUM . ' and ' . self::MAXIMUM
             );

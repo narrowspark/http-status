@@ -3,7 +3,7 @@
     "type"       : "library",
     "description": " A psr-7 package for working with HTTP statuses.",
     "keywords"   : [
-        "psr-7", "psr7", "http", "status", "http-status"
+        "psr-7", "psr7", "http", "status", "http-status", "http-status exceptions", "exception"
     ],
     "license"    : "MIT",
     "homepage"   : "https://github.com/narrowspark/http-status",
