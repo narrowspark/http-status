@@ -85,26 +85,6 @@ class StatusCode
      * @var array
      */
     private static $phrasesExceptions = [
-        100 => 'Continue',
-        101 => 'Switching Protocols',
-        102 => 'Processing',
-        200 => 'OK',
-        201 => 'Created',
-        202 => 'Accepted',
-        203 => 'Non-Authoritative Information',
-        204 => 'No Content',
-        205 => 'Reset Content',
-        206 => 'Partial Content',
-        207 => 'Multi-status',
-        208 => 'Already Reported',
-        300 => 'Multiple Choices',
-        301 => 'Moved Permanently',
-        302 => 'Found',
-        303 => 'See Other',
-        304 => 'Not Modified',
-        305 => 'Use Proxy',
-        306 => 'Switch Proxy',
-        307 => 'Temporary Redirect',
         400 => Exception\BadRequestException::class,
         401 => Exception\UnauthorizedException::class,
         402 => Exception\PaymentRequiredException::class,
@@ -171,20 +151,19 @@ class StatusCode
      *
      * @param int $statusCode http status code
      *
-     * @throws InvalidArgumentException If the requested $statusCode is not valid
-     * @throws OutOfBoundsException     If the requested $statusCode is not found
-     *
-     * @return string Returns text for the given status code
+     * @throws InvalidArgumentException
      */
     public static function getReasonPhraseException($code)
     {
         $code = static::filterStatusCode($code);
 
-        if (! isset(static::$phrasesExceptions[$code])) {
+        if (! isset(static::$phrases[$code])) {
             throw new OutOfBoundsException(sprintf('Unknown http status code: `%s`', $code));
         }
 
-        throw static::$phrasesExceptions[$code];
+        if (isset(static::$phrasesExceptions[$code])) {
+            throw new static::$phrasesExceptions[$code];
+        }
     }
 
     /**

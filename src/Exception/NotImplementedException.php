@@ -1,7 +1,7 @@
 <?php
 namespace Narrowspark\HttpStatus\Exception;
 
-class NotImplementedException extends ServerErrorException
+class NotImplementedException extends AbstractServerErrorException
 {
     /**
      * @var string

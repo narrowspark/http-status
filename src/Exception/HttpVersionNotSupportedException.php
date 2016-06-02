@@ -1,7 +1,7 @@
 <?php
 namespace Narrowspark\HttpStatus\Exception;
 
-class HttpVersionNotSupportedException extends ServerErrorException
+class HttpVersionNotSupportedException extends AbstractServerErrorException
 {
     /**
      * @var string

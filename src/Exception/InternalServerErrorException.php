@@ -1,7 +1,7 @@
 <?php
 namespace Narrowspark\HttpStatus\Exception;
 
-class InternalServerErrorException extends ServerErrorException
+class InternalServerErrorException extends AbstractServerErrorException
 {
     /**
      * @var string

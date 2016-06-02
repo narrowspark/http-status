@@ -1,7 +1,7 @@
 <?php
 namespace Narrowspark\HttpStatus\Exception;
 
-class ServiceUnavailableException extends ServerErrorException
+class ServiceUnavailableException extends AbstractServerErrorException
 {
     /**
      * @var string

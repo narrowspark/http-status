@@ -1,7 +1,7 @@
 <?php
 namespace Narrowspark\HttpStatus\Exception;
 
-class BadGatewayException extends ServerErrorException
+class BadGatewayException extends AbstractServerErrorException
 {
     /**
      * @var string

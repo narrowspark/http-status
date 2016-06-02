@@ -1,7 +1,7 @@
 <?php
 namespace Narrowspark\HttpStatus\Exception;
 
-class GatewayTimeoutException extends ServerErrorException
+class GatewayTimeoutException extends AbstractServerErrorException
 {
     /**
      * @var string
