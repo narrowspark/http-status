@@ -124,6 +124,15 @@ class HttpStatus
     ];
 
     /**
+     * Private constructor; non-instantiable.
+     *
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Array of standard HTTP status code/reason exceptions.
      *
      * @var array
