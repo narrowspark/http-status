@@ -55,12 +55,12 @@ class HttpStatus
      *
      * @var array
      */
-    private static $phrases = [
-        //Informational 1xx
+    private static $statusNames = [
+        // Informational 1xx
         100 => 'Continue',
         101 => 'Switching Protocols',
         102 => 'Processing',
-        //Successful 2xx
+        // Successful 2xx
         200 => 'OK',
         201 => 'Created',
         202 => 'Accepted',
@@ -71,7 +71,7 @@ class HttpStatus
         207 => 'Multi-Status',
         208 => 'Already Reported',
         226 => 'IM Used',
-        //Redirection 3xx
+        // Redirection 3xx
         300 => 'Multiple Choices',
         301 => 'Moved Permanently',
         302 => 'Found',
@@ -81,7 +81,7 @@ class HttpStatus
         306 => '(Unused)',
         307 => 'Temporary Redirect',
         308 => 'Permanent Redirect',
-        //Client Error 4xx
+        // Client Error 4xx
         400 => 'Bad Request',
         401 => 'Unauthorized',
         402 => 'Payment Required',
@@ -109,7 +109,7 @@ class HttpStatus
         429 => 'Too Many Requests',
         431 => 'Request Header Fields Too Large',
         451 => 'Unavailable For Legal Reasons',
-        //Server Error 5xx
+        // Server Error 5xx
         500 => 'Internal Server Error',
         501 => 'Not Implemented',
         502 => 'Bad Gateway',
@@ -121,6 +121,75 @@ class HttpStatus
         508 => 'Loop Detected',
         510 => 'Not Extended',
         511 => 'Network Authentication Required',
+    ];
+
+    /**
+     * Array of standard HTTP status code/reason phrases.
+     *
+     * @var array
+     */
+    private static $errorPhrases = [
+        // Successful 2xx
+        200 => 'Standard response for successful HTTP requests.',
+        201 => 'The request has been fulfilled, resulting in the creation of a new resource.',
+        202 => 'The request has been accepted for processing, but the processing has not been completed.',
+        203 => 'The server is a transforming proxy (e.g. a Web accelerator) that received a 200 OK from its origin, but is returning a modified version of the origin\'s response.',
+        204 => 'The server successfully processed the request and is not returning any content.',
+        205 => 'The server successfully processed the request, but is not returning any content.',
+        206 => 'The server is delivering only part of the resource (byte serving) due to a range header sent by the client.',
+        207 => 'The message body that follows is an XML message and can contain a number of separate response codes, depending on how many sub-requests were made.',
+        208 => 'The members of a DAV binding have already been enumerated in a previous reply to this request, and are not being included again.',
+        226 => 'The server has fulfilled a request for the resource, and the response is a representation of the result of one or more instance-manipulations applied to the current instance.',
+        // Redirection 3xx
+        300 => 'Indicates multiple options for the resource from which the client may choose.',
+        301 => 'This and all future requests should be directed to the given URI.',
+        302 => 'This is an example of industry practice contradicting the standard.',
+        303 => 'The response to the request can be found under another URI using a GET method.',
+        304 => 'Indicates that the resource has not been modified since the version specified by the request headers If-Modified-Since or If-None-Match.',
+        305 => 'The requested resource is available only through a proxy, the address for which is provided in the response.',
+        306 => 'No longer used.',
+        307 => 'In this case, the request should be repeated with another URI; however, future requests should still use the original URI.',
+        308 => 'The request and all future requests should be repeated using another URI.',
+        // Client Error 4xx
+        400 => 'The request cannot be fulfilled due to bad syntax.',
+        401 => 'Authentication is required and has failed or has not yet been provided.',
+        402 => 'Reserved for future use.',
+        403 => 'The request was a valid request, but the server is refusing to respond to it.',
+        404 => 'The requested resource could not be found but may be available again in the future.',
+        405 => 'A request was made of a resource using a request method not supported by that resource.',
+        406 => 'The requested resource is only capable of generating content not acceptable.',
+        407 => 'Proxy authentication is required to access the requested resource.',
+        408 => 'The server did not receive a complete request message in time.',
+        409 => 'The request could not be processed because of conflict in the request.',
+        410 => 'The requested resource is no longer available and will not be available again.',
+        411 => 'The request did not specify the length of its content, which is required by the resource.',
+        412 => 'The server does not meet one of the preconditions that the requester put on the request.',
+        413 => 'The server cannot process the request because the request payload is too large.',
+        414 => 'The request-target is longer than the server is willing to interpret.',
+        415 => 'The request entity has a media type which the server or resource does not support.',
+        416 => 'The client has asked for a portion of the file, but the server cannot supply that portion.',
+        417 => 'The expectation given could not be met by at least one of the inbound servers.',
+        418 => 'I\'m a teapot',
+        422 => 'The request was well-formed but was unable to be followed due to semantic errors.',
+        423 => 'The resource that is being accessed is locked.',
+        424 => 'The request failed due to failure of a previous request.',
+        426 => 'The server cannot process the request using the current protocol.',
+        428 => 'The origin server requires the request to be conditional.',
+        429 => 'The user has sent too many requests in a given amount of time.',
+        431 => 'The server is unwilling to process the request because either an individual header field, or all the header fields collectively, are too large.',
+        451 => 'Resource access is denied for legal reasons.',
+        // Server Error 5xx
+        500 => 'An error has occurred and this resource cannot be displayed.',
+        501 => 'The server either does not recognize the request method, or it lacks the ability to fulfil the request.',
+        502 => 'The server was acting as a gateway or proxy and received an invalid response from the upstream server.',
+        503 => 'The server is currently unavailable. It may be overloaded or down for maintenance.',
+        504 => 'The server was acting as a gateway or proxy and did not receive a timely response from the upstream server.',
+        505 => 'The server does not support the HTTP protocol version used in the request.',
+        506 => 'Transparent content negotiation for the request, results in a circular reference.',
+        507 => 'The method could not be performed on the resource because the server is unable to store the representation needed to successfully complete the request. There is insufficient free space left in your storage allocation.',
+        508 => 'The server detected an infinite loop while processing the request.',
+        510 => 'Further extensions to the request are required for the server to fulfill it.A mandatory extension policy in the request is not accepted by the server for this resource.',
+        511 => 'The client needs to authenticate to gain network access.',
     ];
 
     /**
@@ -192,11 +261,32 @@ class HttpStatus
     {
         $code = static::filterStatusCode($code);
 
-        if (! isset(self::$phrases[$code])) {
+        if (! isset(self::$errorPhrases[$code])) {
             throw new OutOfBoundsException(sprintf('Unknown http status code: `%s`.', $code));
         }
 
-        return self::$phrases[$code];
+        return self::$errorPhrases[$code];
+    }
+
+    /**
+     * Get the name for a given status code.
+     *
+     * @param int $code http status code
+     *
+     * @throws InvalidArgumentException If the requested $code is not valid
+     * @throws OutOfBoundsException     If the requested $code is not found
+     *
+     * @return string Returns name for the given status code
+     */
+    public static function getReasonName($code)
+    {
+        $code = static::filterStatusCode($code);
+
+        if (! isset(self::$statusNames[$code])) {
+            throw new OutOfBoundsException(sprintf('Unknown http status code: `%s`.', $code));
+        }
+
+        return self::$statusNames[$code];
     }
 
     /**
@@ -210,7 +300,7 @@ class HttpStatus
     {
         $code = static::filterStatusCode($code);
 
-        if (! isset(self::$phrases[$code])) {
+        if (! isset(self::$statusNames[$code])) {
             throw new OutOfBoundsException(sprintf('Unknown http status code: `%s`', $code));
         }
 
