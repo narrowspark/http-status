@@ -248,16 +248,16 @@ class HttpStatus
     }
 
     /**
-     * Get the text for a given status code.
+     * Get the message for a given status code.
      *
      * @param int $code http status code
      *
      * @throws InvalidArgumentException If the requested $code is not valid
      * @throws OutOfBoundsException     If the requested $code is not found
      *
-     * @return string Returns text for the given status code
+     * @return string Returns message for the given status code
      */
-    public static function getReasonPhrase($code)
+    public static function getReasonMessage($code)
     {
         $code = static::filterStatusCode($code);
 
@@ -278,7 +278,7 @@ class HttpStatus
      *
      * @return string Returns name for the given status code
      */
-    public static function getReasonName($code)
+    public static function getReasonPhrase($code)
     {
         $code = static::filterStatusCode($code);
 

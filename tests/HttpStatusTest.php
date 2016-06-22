@@ -180,44 +180,26 @@ class HttpStatusTest extends \PHPUnit_Framework_TestCase
         511 => Exception\NetworkAuthenticationRequiredException::class,
     ];
 
-    public function testGetReasonName()
+    public function testGetReasonPhrase()
     {
         foreach ($this->errorNames as $code => $text) {
             $this->assertSame(
                 $text,
-                HttpStatus::getReasonName($code),
-                'Expected HttpStatus::getReasonName(' . $code . ') to return ' . $text
+                HttpStatus::getReasonPhrase($code),
+                'Expected HttpStatus::getReasonPhrase(' . $code . ') to return ' . $text
             );
         }
     }
 
-    public function testGetReasonPhrase()
+    public function testGetReasonMessage()
     {
         foreach ($this->errorPhrases as $code => $text) {
             $this->assertSame(
                 $text,
-                HttpStatus::getReasonPhrase($code),
-                'Expected HttpStatus::getReasonName(' . $code . ') to return ' . $text
+                HttpStatus::getReasonMessage($code),
+                'Expected HttpStatus::getReasonPhrase(' . $code . ') to return ' . $text
             );
         }
-    }
-
-    /**
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage The submitted code must be a positive integer between 100 and 599.
-     */
-    public function testGetReasonNameToThrowInvalidArgumentException()
-    {
-        HttpStatus::getReasonName(700);
-    }
-
-    /**
-     * @expectedException OutOfBoundsException
-     * @expectedExceptionMessage Unknown http status code: `509`.
-     */
-    public function testGetReasonNameToThrowOutOfBoundsException()
-    {
-        HttpStatus::getReasonName(509);
     }
 
     /**
@@ -236,6 +218,24 @@ class HttpStatusTest extends \PHPUnit_Framework_TestCase
     public function testGetReasonPhraseToThrowOutOfBoundsException()
     {
         HttpStatus::getReasonPhrase(509);
+    }
+
+    /**
+     * @expectedException InvalidArgumentException
+     * @expectedExceptionMessage The submitted code must be a positive integer between 100 and 599.
+     */
+    public function testGetReasonMessageToThrowInvalidArgumentException()
+    {
+        HttpStatus::getReasonMessage(700);
+    }
+
+    /**
+     * @expectedException OutOfBoundsException
+     * @expectedExceptionMessage Unknown http status code: `509`.
+     */
+    public function testGetReasonMessageToThrowOutOfBoundsException()
+    {
+        HttpStatus::getReasonMessage(509);
     }
 
     public function testGetReasonException()
