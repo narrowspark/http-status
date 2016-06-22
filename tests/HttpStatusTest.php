@@ -6,7 +6,7 @@ use Narrowspark\HttpStatus\Exception;
 
 class HttpStatusTest extends \PHPUnit_Framework_TestCase
 {
-    private $phrases = [
+    private $errorNames = [
         //Informational 1xx
         100 => 'Continue',
         101 => 'Switching Protocols',
@@ -74,6 +74,47 @@ class HttpStatusTest extends \PHPUnit_Framework_TestCase
         511 => 'Network Authentication Required',
     ];
 
+    private $errorPhrases = [
+        400 => 'The request cannot be fulfilled due to bad syntax.',
+        401 => 'Authentication is required and has failed or has not yet been provided.',
+        402 => '',
+        403 => 'The request was a valid request, but the server is refusing to respond to it.',
+        404 => 'The requested resource could not be found but may be available again in the future.',
+        405 => 'A request was made of a resource using a request method not supported by that resource.',
+        406 => 'The requested resource is only capable of generating content not acceptable.',
+        407 => '',
+        408 => 'The server did not receive a complete request message in time.',
+        409 => 'The request could not be processed because of conflict in the request.',
+        410 => 'The requested resource is no longer available and will not be available again.',
+        411 => 'The request did not specify the length of its content, which is required by the resource.',
+        412 => 'The server does not meet one of the preconditions that the requester put on the request.',
+        413 => 'The server cannot process the request because the request payload is too large.',
+        414 => 'The request-target is longer than the server is willing to interpret.',
+        415 => 'The request entity has a media type which the server or resource does not support.',
+        416 => '',
+        417 => 'The expectation given could not be met by at least one of the inbound servers.',
+        418 => '',
+        422 => 'The request was well-formed but was unable to be followed due to semantic errors.',
+        423 => '',
+        424 => '',
+        426 => 'The server cannot process the request using the current protocol.',
+        428 => 'The origin server requires the request to be conditional.',
+        429 => 'The user has sent too many requests in a given amount of time.',
+        431 => '',
+        451 => '',
+        500 => 'An error has occurred and this resource cannot be displayed.',
+        501 => 'The server either does not recognize the request method, or it lacks the ability to fulfil the request.',
+        502 => 'The server was acting as a gateway or proxy and received an invalid response from the upstream server.',
+        503 => 'The server is currently unavailable. It may be overloaded or down for maintenance.',
+        504 => 'The server was acting as a gateway or proxy and did not receive a timely response from the upstream server.',
+        505 => 'The server does not support the HTTP protocol version used in the request.',
+        506 => '',
+        507 => '',
+        508 => '',
+        510 => '',
+        511 => '',
+    ];
+
     private $phrasesExceptions = [
         400 => Exception\BadRequestException::class,
         401 => Exception\UnauthorizedException::class,
@@ -116,15 +157,44 @@ class HttpStatusTest extends \PHPUnit_Framework_TestCase
         511 => Exception\NetworkAuthenticationRequiredException::class,
     ];
 
+    public function testGetReasonName()
+    {
+        foreach ($this->errorNames as $code => $text) {
+            $this->assertSame(
+                $text,
+                HttpStatus::getReasonName($code),
+                'Expected HttpStatus::getReasonName(' . $code . ') to return ' . $text
+            );
+        }
+    }
+
     public function testGetReasonPhrase()
     {
-        foreach ($this->phrases as $code => $text) {
+        foreach ($this->errorPhrases as $code => $text) {
             $this->assertSame(
                 $text,
                 HttpStatus::getReasonPhrase($code),
-                'Expected HttpStatus::getReasonPhrase(' . $code . ') to return ' . $text
+                'Expected HttpStatus::getReasonName(' . $code . ') to return ' . $text
             );
         }
+    }
+
+    /**
+     * @expectedException InvalidArgumentException
+     * @expectedExceptionMessage The submitted code must be a positive integer between 100 and 599.
+     */
+    public function testGetReasonNameToThrowInvalidArgumentException()
+    {
+        HttpStatus::getReasonName(700);
+    }
+
+    /**
+     * @expectedException OutOfBoundsException
+     * @expectedExceptionMessage Unknown http status code: `509`.
+     */
+    public function testGetReasonNameToThrowOutOfBoundsException()
+    {
+        HttpStatus::getReasonName(509);
     }
 
     /**
@@ -147,7 +217,7 @@ class HttpStatusTest extends \PHPUnit_Framework_TestCase
 
     public function testGetReasonException()
     {
-        foreach ($this->phrases as $code => $text) {
+        foreach ($this->errorNames as $code => $text) {
             try {
                 HttpStatus::getReasonException($code);
             } catch (\Exception $exception) {
@@ -171,7 +241,7 @@ class HttpStatusTest extends \PHPUnit_Framework_TestCase
         $clientCount = 0;
         $serverCount = 0;
 
-        foreach ($this->phrases as $code => $text) {
+        foreach ($this->errorNames as $code => $text) {
             try {
                 HttpStatus::getReasonException($code);
             } catch (Exception\AbstractClientErrorException $client) {

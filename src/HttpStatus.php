@@ -55,7 +55,7 @@ class HttpStatus
      *
      * @var array
      */
-    private static $phrases = [
+    private static $statusNames = [
         //Informational 1xx
         100 => 'Continue',
         101 => 'Switching Protocols',
@@ -121,6 +121,52 @@ class HttpStatus
         508 => 'Loop Detected',
         510 => 'Not Extended',
         511 => 'Network Authentication Required',
+    ];
+
+    /**
+     * Array of standard HTTP status code/reason phrases.
+     *
+     * @var array
+     */
+    private static $errorPhrases = [
+        400 => 'The request cannot be fulfilled due to bad syntax.',
+        401 => 'Authentication is required and has failed or has not yet been provided.',
+        402 => '',
+        403 => 'The request was a valid request, but the server is refusing to respond to it.',
+        404 => 'The requested resource could not be found but may be available again in the future.',
+        405 => 'A request was made of a resource using a request method not supported by that resource.',
+        406 => 'The requested resource is only capable of generating content not acceptable.',
+        407 => '',
+        408 => 'The server did not receive a complete request message in time.',
+        409 => 'The request could not be processed because of conflict in the request.',
+        410 => 'The requested resource is no longer available and will not be available again.',
+        411 => 'The request did not specify the length of its content, which is required by the resource.',
+        412 => 'The server does not meet one of the preconditions that the requester put on the request.',
+        413 => 'The server cannot process the request because the request payload is too large.',
+        414 => 'The request-target is longer than the server is willing to interpret.',
+        415 => 'The request entity has a media type which the server or resource does not support.',
+        416 => '',
+        417 => 'The expectation given could not be met by at least one of the inbound servers.',
+        418 => '',
+        422 => 'The request was well-formed but was unable to be followed due to semantic errors.',
+        423 => '',
+        424 => '',
+        426 => 'The server cannot process the request using the current protocol.',
+        428 => 'The origin server requires the request to be conditional.',
+        429 => 'The user has sent too many requests in a given amount of time.',
+        431 => '',
+        451 => '',
+        500 => 'An error has occurred and this resource cannot be displayed.',
+        501 => 'The server either does not recognize the request method, or it lacks the ability to fulfil the request.',
+        502 => 'The server was acting as a gateway or proxy and received an invalid response from the upstream server.',
+        503 => 'The server is currently unavailable. It may be overloaded or down for maintenance.',
+        504 => 'The server was acting as a gateway or proxy and did not receive a timely response from the upstream server.',
+        505 => 'The server does not support the HTTP protocol version used in the request.',
+        506 => '',
+        507 => '',
+        508 => '',
+        510 => '',
+        511 => '',
     ];
 
     /**
@@ -192,11 +238,32 @@ class HttpStatus
     {
         $code = static::filterStatusCode($code);
 
-        if (! isset(self::$phrases[$code])) {
+        if (! isset(self::$errorPhrases[$code])) {
             throw new OutOfBoundsException(sprintf('Unknown http status code: `%s`.', $code));
         }
 
-        return self::$phrases[$code];
+        return self::$errorPhrases[$code];
+    }
+
+    /**
+     * Get the name for a given status code.
+     *
+     * @param int $code http status code
+     *
+     * @throws InvalidArgumentException If the requested $code is not valid
+     * @throws OutOfBoundsException     If the requested $code is not found
+     *
+     * @return string Returns name for the given status code
+     */
+    public static function getReasonName($code)
+    {
+        $code = static::filterStatusCode($code);
+
+        if (! isset(self::$statusNames[$code])) {
+            throw new OutOfBoundsException(sprintf('Unknown http status code: `%s`.', $code));
+        }
+
+        return self::$statusNames[$code];
     }
 
     /**
@@ -210,7 +277,7 @@ class HttpStatus
     {
         $code = static::filterStatusCode($code);
 
-        if (! isset(self::$phrases[$code])) {
+        if (! isset(self::$statusNames[$code])) {
             throw new OutOfBoundsException(sprintf('Unknown http status code: `%s`', $code));
         }
 
