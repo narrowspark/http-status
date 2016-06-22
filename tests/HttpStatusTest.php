@@ -6,12 +6,12 @@ use Narrowspark\HttpStatus\Exception;
 
 class HttpStatusTest extends \PHPUnit_Framework_TestCase
 {
-    private $phrases = [
-        //Informational 1xx
+    private $errorNames = [
+        // Informational 1xx
         100 => 'Continue',
         101 => 'Switching Protocols',
         102 => 'Processing',
-        //Successful 2xx
+        // Successful 2xx
         200 => 'OK',
         201 => 'Created',
         202 => 'Accepted',
@@ -22,7 +22,7 @@ class HttpStatusTest extends \PHPUnit_Framework_TestCase
         207 => 'Multi-Status',
         208 => 'Already Reported',
         226 => 'IM Used',
-        //Redirection 3xx
+        // Redirection 3xx
         300 => 'Multiple Choices',
         301 => 'Moved Permanently',
         302 => 'Found',
@@ -32,7 +32,7 @@ class HttpStatusTest extends \PHPUnit_Framework_TestCase
         306 => '(Unused)',
         307 => 'Temporary Redirect',
         308 => 'Permanent Redirect',
-        //Client Error 4xx
+        // Client Error 4xx
         400 => 'Bad Request',
         401 => 'Unauthorized',
         402 => 'Payment Required',
@@ -60,7 +60,7 @@ class HttpStatusTest extends \PHPUnit_Framework_TestCase
         429 => 'Too Many Requests',
         431 => 'Request Header Fields Too Large',
         451 => 'Unavailable For Legal Reasons',
-        //Server Error 5xx
+        // Server Error 5xx
         500 => 'Internal Server Error',
         501 => 'Not Implemented',
         502 => 'Bad Gateway',
@@ -72,6 +72,49 @@ class HttpStatusTest extends \PHPUnit_Framework_TestCase
         508 => 'Loop Detected',
         510 => 'Not Extended',
         511 => 'Network Authentication Required',
+    ];
+
+    private $errorPhrases = [
+        // Client Error 4xx
+        400 => 'The request cannot be fulfilled due to bad syntax.',
+        401 => 'Authentication is required and has failed or has not yet been provided.',
+        402 => 'Reserved for future use.',
+        403 => 'The request was a valid request, but the server is refusing to respond to it.',
+        404 => 'The requested resource could not be found but may be available again in the future.',
+        405 => 'A request was made of a resource using a request method not supported by that resource.',
+        406 => 'The requested resource is only capable of generating content not acceptable.',
+        407 => 'Proxy authentication is required to access the requested resource.',
+        408 => 'The server did not receive a complete request message in time.',
+        409 => 'The request could not be processed because of conflict in the request.',
+        410 => 'The requested resource is no longer available and will not be available again.',
+        411 => 'The request did not specify the length of its content, which is required by the resource.',
+        412 => 'The server does not meet one of the preconditions that the requester put on the request.',
+        413 => 'The server cannot process the request because the request payload is too large.',
+        414 => 'The request-target is longer than the server is willing to interpret.',
+        415 => 'The request entity has a media type which the server or resource does not support.',
+        416 => 'The client has asked for a portion of the file, but the server cannot supply that portion.',
+        417 => 'The expectation given could not be met by at least one of the inbound servers.',
+        418 => 'I\'m a teapot',
+        422 => 'The request was well-formed but was unable to be followed due to semantic errors.',
+        423 => 'The resource that is being accessed is locked.',
+        424 => 'The request failed due to failure of a previous request.',
+        426 => 'The server cannot process the request using the current protocol.',
+        428 => 'The origin server requires the request to be conditional.',
+        429 => 'The user has sent too many requests in a given amount of time.',
+        431 => 'The server is unwilling to process the request because either an individual header field, or all the header fields collectively, are too large.',
+        451 => 'Resource access is denied for legal reasons.',
+        // Server Error 5xx
+        500 => 'An error has occurred and this resource cannot be displayed.',
+        501 => 'The server either does not recognize the request method, or it lacks the ability to fulfil the request.',
+        502 => 'The server was acting as a gateway or proxy and received an invalid response from the upstream server.',
+        503 => 'The server is currently unavailable. It may be overloaded or down for maintenance.',
+        504 => 'The server was acting as a gateway or proxy and did not receive a timely response from the upstream server.',
+        505 => 'The server does not support the HTTP protocol version used in the request.',
+        506 => 'Transparent content negotiation for the request, results in a circular reference.',
+        507 => 'The method could not be performed on the resource because the server is unable to store the representation needed to successfully complete the request. There is insufficient free space left in your storage allocation.',
+        508 => 'The server detected an infinite loop while processing the request.',
+        510 => 'Further extensions to the request are required for the server to fulfill it.A mandatory extension policy in the request is not accepted by the server for this resource.',
+        511 => 'The client needs to authenticate to gain network access.',
     ];
 
     private $phrasesExceptions = [
@@ -116,15 +159,44 @@ class HttpStatusTest extends \PHPUnit_Framework_TestCase
         511 => Exception\NetworkAuthenticationRequiredException::class,
     ];
 
+    public function testGetReasonName()
+    {
+        foreach ($this->errorNames as $code => $text) {
+            $this->assertSame(
+                $text,
+                HttpStatus::getReasonName($code),
+                'Expected HttpStatus::getReasonName(' . $code . ') to return ' . $text
+            );
+        }
+    }
+
     public function testGetReasonPhrase()
     {
-        foreach ($this->phrases as $code => $text) {
+        foreach ($this->errorPhrases as $code => $text) {
             $this->assertSame(
                 $text,
                 HttpStatus::getReasonPhrase($code),
-                'Expected HttpStatus::getReasonPhrase(' . $code . ') to return ' . $text
+                'Expected HttpStatus::getReasonName(' . $code . ') to return ' . $text
             );
         }
+    }
+
+    /**
+     * @expectedException InvalidArgumentException
+     * @expectedExceptionMessage The submitted code must be a positive integer between 100 and 599.
+     */
+    public function testGetReasonNameToThrowInvalidArgumentException()
+    {
+        HttpStatus::getReasonName(700);
+    }
+
+    /**
+     * @expectedException OutOfBoundsException
+     * @expectedExceptionMessage Unknown http status code: `509`.
+     */
+    public function testGetReasonNameToThrowOutOfBoundsException()
+    {
+        HttpStatus::getReasonName(509);
     }
 
     /**
@@ -147,7 +219,7 @@ class HttpStatusTest extends \PHPUnit_Framework_TestCase
 
     public function testGetReasonException()
     {
-        foreach ($this->phrases as $code => $text) {
+        foreach ($this->errorNames as $code => $text) {
             try {
                 HttpStatus::getReasonException($code);
             } catch (\Exception $exception) {
@@ -171,7 +243,7 @@ class HttpStatusTest extends \PHPUnit_Framework_TestCase
         $clientCount = 0;
         $serverCount = 0;
 
-        foreach ($this->phrases as $code => $text) {
+        foreach ($this->errorNames as $code => $text) {
             try {
                 HttpStatus::getReasonException($code);
             } catch (Exception\AbstractClientErrorException $client) {
