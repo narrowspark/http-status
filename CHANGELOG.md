@@ -5,13 +5,13 @@ All Notable changes to `http-status` will be documented in this file
 ## NEXT - 2016-06-22
 
 ### Added
-- HttpStatus::getReasonName | returns the status name.
+- HttpStatus::getReasonMessage | returns the status message.
 
 ### Deprecated
 - Nothing
 
 ### Fixed
-- HttpStatus::getReasonPhrase | return now the status text for a error.
+- Nothing
 
 ### Removed
 - Nothing

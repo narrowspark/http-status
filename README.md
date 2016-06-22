@@ -24,11 +24,11 @@ $ composer require narrowspark/http-status
 
 use Narrowspark\HttpStatus\HttpStatus;
 
-// get status text from code
-echo HttpStatus::getReasonPhrase(301); // This and all future requests should be directed to the given URI.
+// get status message from code
+echo HttpStatus::getReasonMessage(301); // This and all future requests should be directed to the given URI.
 
 // get status name from code
-echo HttpStatus::getReasonName(301); // Moved Permanently
+echo HttpStatus::getReasonPhrase(301); // Moved Permanently
 
 try {
     HttpStatus::getReasonException(301):
