@@ -75,6 +75,27 @@ class HttpStatusTest extends \PHPUnit_Framework_TestCase
     ];
 
     private $errorPhrases = [
+        // Successful 2xx
+        200 => 'Standard response for successful HTTP requests.',
+        201 => 'The request has been fulfilled, resulting in the creation of a new resource.',
+        202 => 'The request has been accepted for processing, but the processing has not been completed.',
+        203 => 'The server is a transforming proxy (e.g. a Web accelerator) that received a 200 OK from its origin, but is returning a modified version of the origin\'s response.',
+        204 => 'The server successfully processed the request and is not returning any content.',
+        205 => 'The server successfully processed the request, but is not returning any content.',
+        206 => 'The server is delivering only part of the resource (byte serving) due to a range header sent by the client.',
+        207 => 'The message body that follows is an XML message and can contain a number of separate response codes, depending on how many sub-requests were made.',
+        208 => 'The members of a DAV binding have already been enumerated in a previous reply to this request, and are not being included again.',
+        226 => 'The server has fulfilled a request for the resource, and the response is a representation of the result of one or more instance-manipulations applied to the current instance.',
+        // Redirection 3xx
+        300 => 'Indicates multiple options for the resource from which the client may choose.',
+        301 => 'This and all future requests should be directed to the given URI.',
+        302 => 'This is an example of industry practice contradicting the standard.',
+        303 => 'The response to the request can be found under another URI using a GET method.',
+        304 => 'Indicates that the resource has not been modified since the version specified by the request headers If-Modified-Since or If-None-Match.',
+        305 => 'The requested resource is available only through a proxy, the address for which is provided in the response.',
+        306 => 'No longer used.',
+        307 => 'In this case, the request should be repeated with another URI; however, future requests should still use the original URI.',
+        308 => 'The request and all future requests should be repeated using another URI.',
         // Client Error 4xx
         400 => 'The request cannot be fulfilled due to bad syntax.',
         401 => 'Authentication is required and has failed or has not yet been provided.',
