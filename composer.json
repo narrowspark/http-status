@@ -24,7 +24,7 @@
     },
     "require-dev": {
         "narrowspark/php-cs-fixer-config"      : "^1.4",
-        "phpunit/phpunit"                      : "^5.1"
+        "phpunit/phpunit"                      : "^4.8 || ^5.1"
     },
     "provide": {
         "psr/http-message-implementation"      : "^1.0"
