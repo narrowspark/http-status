@@ -6,6 +6,7 @@ All Notable changes to `http-status` will be documented in this file
 ### Added
 - MisdirectedRequestException, the error code 421 and the status message.
 - Support for [http-message-util](//github.com/php-fig/http-message-util)
+- Tests against iana.org
 
 ### Deprecated
 - Nothing

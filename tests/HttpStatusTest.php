@@ -2,9 +2,12 @@
 declare(strict_types=1);
 namespace Narrowspark\HttpStatus\Tests;
 
+use DOMDocument;
+use DomXPath;
 use Narrowspark\HttpStatus\Exception;
 use Narrowspark\HttpStatus\HttpStatus;
 use PHPUnit\Framework\TestCase;
+use Throwable;
 
 class HttpStatusTest extends TestCase
 {
@@ -48,10 +51,10 @@ class HttpStatusTest extends TestCase
         410 => 'Gone',
         411 => 'Length Required',
         412 => 'Precondition Failed',
-        413 => 'Request Entity Too Large',
-        414 => 'Request-URI Too Long',
+        413 => 'Payload Too Large',
+        414 => 'URI Too Long',
         415 => 'Unsupported Media Type',
-        416 => 'Requested Range Not Satisfiable',
+        416 => 'Range Not Satisfiable',
         417 => 'Expectation Failed',
         418 => 'I\'m a teapot',
         421 => 'Misdirected Request',
@@ -156,7 +159,7 @@ class HttpStatusTest extends TestCase
         410 => Exception\GoneException::class,
         411 => Exception\LengthRequiredException::class,
         412 => Exception\PreconditionFailedException::class,
-        413 => Exception\RequestEntityTooLargeException::class,
+        413 => Exception\PayloadTooLargeException::class,
         414 => Exception\RequestUriTooLongException::class,
         415 => Exception\UnsupportedMediaTypeException::class,
         416 => Exception\RequestedRangeNotSatisfiableException::class,
@@ -188,7 +191,7 @@ class HttpStatusTest extends TestCase
     public function testGetReasonPhrase()
     {
         foreach ($this->errorNames as $code => $text) {
-            $this->assertSame(
+            self::assertSame(
                 $text,
                 HttpStatus::getReasonPhrase($code),
                 'Expected HttpStatus::getReasonPhrase(' . $code . ') to return ' . $text
@@ -199,7 +202,7 @@ class HttpStatusTest extends TestCase
     public function testGetReasonMessage()
     {
         foreach ($this->errorPhrases as $code => $text) {
-            $this->assertSame(
+            self::assertSame(
                 $text,
                 HttpStatus::getReasonMessage($code),
                 'Expected HttpStatus::getReasonPhrase(' . $code . ') to return ' . $text
@@ -248,14 +251,14 @@ class HttpStatusTest extends TestCase
         foreach ($this->errorNames as $code => $text) {
             try {
                 HttpStatus::getReasonException($code);
-            } catch (\Exception $exception) {
-                $this->assertSame(
+            } catch (Throwable $exception) {
+                self::assertSame(
                     $code . ' ' . $text,
                     $exception->getMessage(),
                     'Expected HttpStatus::getReasonException(' . $code . ') to return ' . $text
                 );
 
-                $this->assertSame(
+                self::assertSame(
                     $code,
                     $exception->getCode(),
                     'Expected HttpStatus::getReasonException(' . $code . ') to return ' . $text
@@ -279,7 +282,82 @@ class HttpStatusTest extends TestCase
             }
         }
 
-        $this->assertSame(28, $clientCount);
-        $this->assertSame(11, $serverCount);
+        self::assertSame(28, $clientCount);
+        self::assertSame(11, $serverCount);
+    }
+
+    /**
+     * @dataProvider ianaCodesReasonPhrasesProvider
+     *
+     * @param mixed $code
+     * @param mixed $reasonPhrase
+     */
+    public function testReasonPhraseDefaultsAgainstIana($code, $reasonPhrase)
+    {
+        self::assertEquals($reasonPhrase, HttpStatus::getReasonPhrase((int) $code));
+    }
+
+    /**
+     * @dataProvider ianaCodesReasonPhrasesProvider
+     *
+     * @param mixed $code
+     * @param mixed $reasonPhrase
+     */
+    public function testGetReasonExceptionAgainstIana($code, $reasonPhrase)
+    {
+        // skip http code from 100 to 399
+        if ((100 <= $code) && ($code <= 399)) {
+            self::assertTrue(true);
+        }
+
+        try {
+            HttpStatus::getReasonException((int) $code);
+        } catch (Throwable $exception) {
+            self::assertSame(
+                $code . ' ' . $reasonPhrase,
+                $exception->getMessage(),
+                'Expected HttpStatus::getReasonException(' . $code . ') to return ' . $reasonPhrase
+            );
+
+            self::assertSame(
+                (int) $code,
+                $exception->getCode(),
+                'Expected HttpStatus::getReasonException(' . $code . ') to return ' . $reasonPhrase
+            );
+        }
+    }
+
+    public function ianaCodesReasonPhrasesProvider(): array
+    {
+        $ianaHttpStatusCodes = new DOMDocument();
+        $ianaHttpStatusCodes->loadXML(file_get_contents('https://www.iana.org/assignments/http-status-codes/http-status-codes.xml'));
+
+        $ianaCodesReasonPhrases = [];
+
+        $xpath = new DomXPath($ianaHttpStatusCodes);
+        $xpath->registerNamespace('ns', 'http://www.iana.org/assignments');
+
+        $records = $xpath->query('//ns:record');
+
+        foreach ($records as $record) {
+            $value       = $xpath->query('.//ns:value', $record)->item(0)->nodeValue;
+            $description = $xpath->query('.//ns:description', $record)->item(0)->nodeValue;
+
+            if ($description === 'Unassigned' | $description === '(Unused)') {
+                continue;
+            }
+
+            $range = preg_match('/^([0-9]+)\s*\-\s*([0-9]+)$/', $value, $matches);
+
+            if (! $range) {
+                $ianaCodesReasonPhrases[] = [$value, $description];
+            } else {
+                for ($value = $matches[1]; $value <= $matches[2]; ++$value) {
+                    $ianaCodesReasonPhrases[] = [$value, $description];
+                }
+            }
+        }
+
+        return $ianaCodesReasonPhrases;
     }
 }

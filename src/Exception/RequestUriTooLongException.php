@@ -7,7 +7,7 @@ class RequestUriTooLongException extends AbstractClientErrorException
     /**
      * @var string
      */
-    protected $message = '414 Request-URI Too Long';
+    protected $message = '414 URI Too Long';
 
     /**
      * @var int
