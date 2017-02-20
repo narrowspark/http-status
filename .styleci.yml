@@ -13,7 +13,6 @@ enabled:
   - align_equals
   - combine_consecutive_unsets
   - concat_with_spaces
-  - const_visibility_required
   - declare_strict_types
   - dir_constant
   - ereg_to_preg

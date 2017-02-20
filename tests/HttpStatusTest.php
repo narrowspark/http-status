@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 namespace Narrowspark\HttpStatus\Tests;
 
 use Narrowspark\HttpStatus\Exception;
@@ -207,7 +208,7 @@ class HttpStatusTest extends TestCase
     }
 
     /**
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage The submitted code must be a positive integer between 100 and 599.
      */
     public function testGetReasonPhraseToThrowInvalidArgumentException()
@@ -216,7 +217,7 @@ class HttpStatusTest extends TestCase
     }
 
     /**
-     * @expectedException OutOfBoundsException
+     * @expectedException \OutOfBoundsException
      * @expectedExceptionMessage Unknown http status code: `509`.
      */
     public function testGetReasonPhraseToThrowOutOfBoundsException()
@@ -225,7 +226,7 @@ class HttpStatusTest extends TestCase
     }
 
     /**
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage The submitted code must be a positive integer between 100 and 599.
      */
     public function testGetReasonMessageToThrowInvalidArgumentException()
@@ -234,7 +235,7 @@ class HttpStatusTest extends TestCase
     }
 
     /**
-     * @expectedException OutOfBoundsException
+     * @expectedException \OutOfBoundsException
      * @expectedExceptionMessage Unknown http status code: `509`.
      */
     public function testGetReasonMessageToThrowOutOfBoundsException()
