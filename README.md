@@ -21,14 +21,10 @@ $ composer require narrowspark/http-status
 ## Usage
 
 ``` php
-
 use Narrowspark\HttpStatus\HttpStatus;
 
 // get status message from code
 echo HttpStatus::getReasonMessage(301); // This and all future requests should be directed to the given URI.
-
-// get status name from code
-echo HttpStatus::getReasonPhrase(301); // Moved Permanently
 
 try {
     HttpStatus::getReasonException(301):
@@ -36,10 +32,18 @@ try {
     echo $e->getMessage(); // 301 Moved Permanently
     echo $e->getCode(); // 301
 }
-
 ```
 
-## HTTP status code classes ([from RFC7231](https://tools.ietf.org/html/rfc7231#section-6))
+### Now we have support for ([http-message-util](//github.com/php-fig/http-message-util)) so you can do something like this:
+
+``` php
+use Narrowspark\HttpStatus\HttpStatus;
+
+// get status name from code
+echo HttpStatus::getReasonPhrase(HttpStatus::STATUS_MOVED_PERMANENTLY); // Moved Permanently
+```
+
+## HTTP status code classes ([from RFC7231](//tools.ietf.org/html/rfc7231#section-6))
 The first digit of the status-code defines the class of response.
 The last two digits do not have any categorization role. There are five values for the first digit:
 
@@ -111,7 +115,9 @@ Code  |  Message  |  RFC
 429 | Too Many Requests | [RFC6585]
 430 | *Unassigned* |
 431 | Request Header Fields Too Large | [RFC6585]
-432-499 | *Unassigned* |
+432-450 | *Unassigned* |
+451	| Unavailable For Legal | [RFC7725]
+452-499 | *Unassigned* |
 500 | Internal Server Error | [RFC7231, Section 6.6.1]
 501 | Not Implemented | [RFC7231, Section 6.6.2]
 502 | Bad Gateway | [RFC7231, Section 6.6.3]

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace Narrowspark\HttpStatus\Exception;
 
 class LockedException extends AbstractClientErrorException

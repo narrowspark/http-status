@@ -7,7 +7,6 @@ $config->getFinder()
     ->in(__DIR__)
     ->exclude('build')
     ->exclude('vendor')
-    ->exclude('tests')
     ->name('*.php')
     ->ignoreDotFiles(true)
     ->ignoreVCS(true);
