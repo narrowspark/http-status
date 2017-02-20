@@ -50,8 +50,8 @@ class HttpStatus implements StatusCodeInterface
     /**
      * Allowed range for a valid HTTP status code.
      */
-    const MINIMUM = 100;
-    const MAXIMUM = 599;
+    public const MINIMUM = 100;
+    public const MAXIMUM = 599;
 
     /**
      * Array of standard HTTP status code/reason phrases.
