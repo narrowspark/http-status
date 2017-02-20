@@ -27,19 +27,25 @@ use Narrowspark\HttpStatus\HttpStatus;
 // get status message from code
 echo HttpStatus::getReasonMessage(301); // This and all future requests should be directed to the given URI.
 
-// get status name from code
-echo HttpStatus::getReasonPhrase(301); // Moved Permanently
-
 try {
     HttpStatus::getReasonException(301):
 } catch(/Exception $e) {
     echo $e->getMessage(); // 301 Moved Permanently
     echo $e->getCode(); // 301
 }
+```
+
+### Now we have support for ([http-message-util](//github.com/php-fig/http-message-util)) so you can do something like this:
+
+``` php
+use Narrowspark\HttpStatus\HttpStatus;
+
+// get status name from code
+echo HttpStatus::getReasonPhrase(HttpStatus::STATUS_MOVED_PERMANENTLY); // Moved Permanently
 
 ```
 
-## HTTP status code classes ([from RFC7231](https://tools.ietf.org/html/rfc7231#section-6))
+## HTTP status code classes ([from RFC7231](//tools.ietf.org/html/rfc7231#section-6))
 The first digit of the status-code defines the class of response.
 The last two digits do not have any categorization role. There are five values for the first digit:
 
