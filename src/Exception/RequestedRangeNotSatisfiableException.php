@@ -7,7 +7,7 @@ class RequestedRangeNotSatisfiableException extends AbstractClientErrorException
     /**
      * @var string
      */
-    protected $message = '416 Requested Range Not Satisfiable';
+    protected $message = '416 Range Not Satisfiable';
 
     /**
      * @var int

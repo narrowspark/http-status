@@ -2,12 +2,12 @@
 declare(strict_types=1);
 namespace Narrowspark\HttpStatus\Exception;
 
-class RequestEntityTooLargeException extends AbstractClientErrorException
+class PayloadTooLargeException extends AbstractClientErrorException
 {
     /**
      * @var string
      */
-    protected $message = '413 Request Entity Too Large';
+    protected $message = '413 Payload Too Large';
 
     /**
      * @var int

@@ -26,12 +26,12 @@ use Narrowspark\HttpStatus\Exception\NotAcceptableException;
 use Narrowspark\HttpStatus\Exception\NotExtendedException;
 use Narrowspark\HttpStatus\Exception\NotFoundException;
 use Narrowspark\HttpStatus\Exception\NotImplementedException;
+use Narrowspark\HttpStatus\Exception\PayloadTooLargeException;
 use Narrowspark\HttpStatus\Exception\PaymentRequiredException;
 use Narrowspark\HttpStatus\Exception\PreconditionFailedException;
 use Narrowspark\HttpStatus\Exception\PreconditionRequiredException;
 use Narrowspark\HttpStatus\Exception\ProxyAuthenticationRequiredException;
 use Narrowspark\HttpStatus\Exception\RequestedRangeNotSatisfiableException;
-use Narrowspark\HttpStatus\Exception\RequestEntityTooLargeException;
 use Narrowspark\HttpStatus\Exception\RequestHeaderFieldsTooLargeException;
 use Narrowspark\HttpStatus\Exception\RequestTimeoutException;
 use Narrowspark\HttpStatus\Exception\RequestUriTooLongException;
@@ -98,10 +98,10 @@ class HttpStatus implements StatusCodeInterface
         410 => 'Gone',
         411 => 'Length Required',
         412 => 'Precondition Failed',
-        413 => 'Request Entity Too Large',
-        414 => 'Request-URI Too Long',
+        413 => 'Payload Too Large',
+        414 => 'URI Too Long',
         415 => 'Unsupported Media Type',
-        416 => 'Requested Range Not Satisfiable',
+        416 => 'Range Not Satisfiable',
         417 => 'Expectation Failed',
         418 => 'I\'m a teapot',
         421 => 'Misdirected Request',
@@ -216,7 +216,7 @@ class HttpStatus implements StatusCodeInterface
         410 => GoneException::class,
         411 => LengthRequiredException::class,
         412 => PreconditionFailedException::class,
-        413 => RequestEntityTooLargeException::class,
+        413 => PayloadTooLargeException::class,
         414 => RequestUriTooLongException::class,
         415 => UnsupportedMediaTypeException::class,
         416 => RequestedRangeNotSatisfiableException::class,
