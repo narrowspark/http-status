@@ -288,6 +288,7 @@ class HttpStatusTest extends TestCase
 
     /**
      * @dataProvider ianaCodesReasonPhrasesProvider
+     *
      * @param mixed $code
      * @param mixed $reasonPhrase
      */
@@ -298,6 +299,7 @@ class HttpStatusTest extends TestCase
 
     /**
      * @dataProvider ianaCodesReasonPhrasesProvider
+     *
      * @param mixed $code
      * @param mixed $reasonPhrase
      */
