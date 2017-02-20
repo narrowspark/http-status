@@ -1,9 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 namespace Narrowspark\HttpStatus\Tests;
 
-use PHPUnit\Framework\TestCase;
-use Narrowspark\HttpStatus\HttpStatus;
 use Narrowspark\HttpStatus\Exception;
+use Narrowspark\HttpStatus\HttpStatus;
+use PHPUnit\Framework\TestCase;
 
 class HttpStatusTest extends TestCase
 {
