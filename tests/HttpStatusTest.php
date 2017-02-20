@@ -1,10 +1,12 @@
 <?php
+declare(strict_types=1);
 namespace Narrowspark\HttpStatus\Tests;
 
-use Narrowspark\HttpStatus\HttpStatus;
 use Narrowspark\HttpStatus\Exception;
+use Narrowspark\HttpStatus\HttpStatus;
+use PHPUnit\Framework\TestCase;
 
-class HttpStatusTest extends \PHPUnit_Framework_TestCase
+class HttpStatusTest extends TestCase
 {
     private $errorNames = [
         // Informational 1xx
@@ -52,6 +54,7 @@ class HttpStatusTest extends \PHPUnit_Framework_TestCase
         416 => 'Requested Range Not Satisfiable',
         417 => 'Expectation Failed',
         418 => 'I\'m a teapot',
+        421 => 'Misdirected Request',
         422 => 'Unprocessable Entity',
         423 => 'Locked',
         424 => 'Failed Dependency',
@@ -116,6 +119,7 @@ class HttpStatusTest extends \PHPUnit_Framework_TestCase
         416 => 'The client has asked for a portion of the file, but the server cannot supply that portion.',
         417 => 'The expectation given could not be met by at least one of the inbound servers.',
         418 => 'I\'m a teapot',
+        421 => 'The request was directed at a server that is not able to produce a response.',
         422 => 'The request was well-formed but was unable to be followed due to semantic errors.',
         423 => 'The resource that is being accessed is locked.',
         424 => 'The request failed due to failure of a previous request.',
@@ -158,6 +162,7 @@ class HttpStatusTest extends \PHPUnit_Framework_TestCase
         416 => Exception\RequestedRangeNotSatisfiableException::class,
         417 => Exception\ExpectationFailedException::class,
         418 => Exception\ImATeapotException::class,
+        421 => Exception\MisdirectedRequestException::class,
         422 => Exception\UnprocessableEntityException::class,
         423 => Exception\LockedException::class,
         424 => Exception\FailedDependencyException::class,
@@ -203,7 +208,7 @@ class HttpStatusTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage The submitted code must be a positive integer between 100 and 599.
      */
     public function testGetReasonPhraseToThrowInvalidArgumentException()
@@ -212,7 +217,7 @@ class HttpStatusTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException OutOfBoundsException
+     * @expectedException \OutOfBoundsException
      * @expectedExceptionMessage Unknown http status code: `509`.
      */
     public function testGetReasonPhraseToThrowOutOfBoundsException()
@@ -221,7 +226,7 @@ class HttpStatusTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage The submitted code must be a positive integer between 100 and 599.
      */
     public function testGetReasonMessageToThrowInvalidArgumentException()
@@ -230,7 +235,7 @@ class HttpStatusTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException OutOfBoundsException
+     * @expectedException \OutOfBoundsException
      * @expectedExceptionMessage Unknown http status code: `509`.
      */
     public function testGetReasonMessageToThrowOutOfBoundsException()
@@ -274,7 +279,7 @@ class HttpStatusTest extends \PHPUnit_Framework_TestCase
             }
         }
 
-        $this->assertSame(27, $clientCount);
+        $this->assertSame(28, $clientCount);
         $this->assertSame(11, $serverCount);
     }
 }
