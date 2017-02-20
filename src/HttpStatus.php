@@ -1,6 +1,8 @@
 <?php
+declare(strict_types=1);
 namespace Narrowspark\HttpStatus;
 
+use Fig\Http\Message\StatusCodeInterface;
 use InvalidArgumentException;
 use Narrowspark\HttpStatus\Exception\BadGatewayException;
 use Narrowspark\HttpStatus\Exception\BadRequestException;
@@ -18,6 +20,7 @@ use Narrowspark\HttpStatus\Exception\LengthRequiredException;
 use Narrowspark\HttpStatus\Exception\LockedException;
 use Narrowspark\HttpStatus\Exception\LoopDetectedException;
 use Narrowspark\HttpStatus\Exception\MethodNotAllowedException;
+use Narrowspark\HttpStatus\Exception\MisdirectedRequestException;
 use Narrowspark\HttpStatus\Exception\NetworkAuthenticationRequiredException;
 use Narrowspark\HttpStatus\Exception\NotAcceptableException;
 use Narrowspark\HttpStatus\Exception\NotExtendedException;
@@ -42,10 +45,10 @@ use Narrowspark\HttpStatus\Exception\UpgradeRequiredException;
 use Narrowspark\HttpStatus\Exception\VariantAlsoNegotiatesException;
 use OutOfBoundsException;
 
-class HttpStatus
+class HttpStatus implements StatusCodeInterface
 {
     /**
-     * Allowed range for a valid HTTP status code
+     * Allowed range for a valid HTTP status code.
      */
     const MINIMUM = 100;
     const MAXIMUM = 599;
@@ -101,6 +104,7 @@ class HttpStatus
         416 => 'Requested Range Not Satisfiable',
         417 => 'Expectation Failed',
         418 => 'I\'m a teapot',
+        421 => 'Misdirected Request',
         422 => 'Unprocessable Entity',
         423 => 'Locked',
         424 => 'Failed Dependency',
@@ -170,6 +174,7 @@ class HttpStatus
         416 => 'The client has asked for a portion of the file, but the server cannot supply that portion.',
         417 => 'The expectation given could not be met by at least one of the inbound servers.',
         418 => 'I\'m a teapot',
+        421 => 'The request was directed at a server that is not able to produce a response.',
         422 => 'The request was well-formed but was unable to be followed due to semantic errors.',
         423 => 'The resource that is being accessed is locked.',
         424 => 'The request failed due to failure of a previous request.',
@@ -217,6 +222,7 @@ class HttpStatus
         416 => RequestedRangeNotSatisfiableException::class,
         417 => ExpectationFailedException::class,
         418 => ImATeapotException::class,
+        421 => MisdirectedRequestException::class,
         422 => UnprocessableEntityException::class,
         423 => LockedException::class,
         424 => FailedDependencyException::class,
@@ -252,12 +258,12 @@ class HttpStatus
      *
      * @param int $code http status code
      *
-     * @throws InvalidArgumentException If the requested $code is not valid
-     * @throws OutOfBoundsException     If the requested $code is not found
+     * @throws \InvalidArgumentException If the requested $code is not valid
+     * @throws \OutOfBoundsException     If the requested $code is not found
      *
      * @return string Returns message for the given status code
      */
-    public static function getReasonMessage($code)
+    public static function getReasonMessage(int $code): string
     {
         $code = static::filterStatusCode($code);
 
@@ -273,12 +279,12 @@ class HttpStatus
      *
      * @param int $code http status code
      *
-     * @throws InvalidArgumentException If the requested $code is not valid
-     * @throws OutOfBoundsException     If the requested $code is not found
+     * @throws \InvalidArgumentException If the requested $code is not valid
+     * @throws \\OutOfBoundsException    If the requested $code is not found
      *
      * @return string Returns name for the given status code
      */
-    public static function getReasonPhrase($code)
+    public static function getReasonPhrase(int $code): string
     {
         $code = static::filterStatusCode($code);
 
@@ -290,13 +296,51 @@ class HttpStatus
     }
 
     /**
-     * Get the text for a given status code
+     * Get the text for a given status code.
      *
      * @param int $code http status code
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
+     * @throws \Narrowspark\HttpStatus\Exception\BadGatewayException
+     * @throws \Narrowspark\HttpStatus\Exception\BadRequestException
+     * @throws \Narrowspark\HttpStatus\Exception\ConflictException
+     * @throws \Narrowspark\HttpStatus\Exception\ExpectationFailedException
+     * @throws \Narrowspark\HttpStatus\Exception\FailedDependencyException
+     * @throws \Narrowspark\HttpStatus\Exception\ForbiddenException
+     * @throws \Narrowspark\HttpStatus\Exception\GatewayTimeoutException
+     * @throws \Narrowspark\HttpStatus\Exception\GoneException
+     * @throws \Narrowspark\HttpStatus\Exception\HttpVersionNotSupportedException
+     * @throws \Narrowspark\HttpStatus\Exception\ImATeapotException
+     * @throws \Narrowspark\HttpStatus\Exception\InsufficientStorageException
+     * @throws \Narrowspark\HttpStatus\Exception\InternalServerErrorException
+     * @throws \Narrowspark\HttpStatus\Exception\LengthRequiredException
+     * @throws \Narrowspark\HttpStatus\Exception\LockedException
+     * @throws \Narrowspark\HttpStatus\Exception\LoopDetectedException
+     * @throws \Narrowspark\HttpStatus\Exception\MethodNotAllowedException
+     * @throws \Narrowspark\HttpStatus\Exception\NetworkAuthenticationRequiredException
+     * @throws \Narrowspark\HttpStatus\Exception\NotAcceptableException
+     * @throws \Narrowspark\HttpStatus\Exception\NotExtendedException
+     * @throws \Narrowspark\HttpStatus\Exception\NotFoundException
+     * @throws \Narrowspark\HttpStatus\Exception\NotImplementedException
+     * @throws \Narrowspark\HttpStatus\Exception\PaymentRequiredException
+     * @throws \Narrowspark\HttpStatus\Exception\PreconditionFailedException
+     * @throws \Narrowspark\HttpStatus\Exception\PreconditionRequiredException
+     * @throws \Narrowspark\HttpStatus\Exception\ProxyAuthenticationRequiredException
+     * @throws \Narrowspark\HttpStatus\Exception\RequestedRangeNotSatisfiableException
+     * @throws \Narrowspark\HttpStatus\Exception\RequestEntityTooLargeException
+     * @throws \Narrowspark\HttpStatus\Exception\RequestHeaderFieldsTooLargeException
+     * @throws \Narrowspark\HttpStatus\Exception\RequestTimeoutException
+     * @throws \Narrowspark\HttpStatus\Exception\RequestUriTooLongException
+     * @throws \Narrowspark\HttpStatus\Exception\ServiceUnavailableException
+     * @throws \Narrowspark\HttpStatus\Exception\TooManyRequestsException
+     * @throws \Narrowspark\HttpStatus\Exception\UnauthorizedException
+     * @throws \Narrowspark\HttpStatus\Exception\UnavailableForLegalReasonsException
+     * @throws \Narrowspark\HttpStatus\Exception\UnprocessableEntityException
+     * @throws \Narrowspark\HttpStatus\Exception\UnsupportedMediaTypeException
+     * @throws \Narrowspark\HttpStatus\Exception\UpgradeRequiredException
+     * @throws \Narrowspark\HttpStatus\Exception\VariantAlsoNegotiatesException
      */
-    public static function getReasonException($code)
+    public static function getReasonException(int $code)
     {
         $code = static::filterStatusCode($code);
 
@@ -310,15 +354,15 @@ class HttpStatus
     }
 
     /**
-     * Filter a HTTP Status code
+     * Filter a HTTP Status code.
      *
      * @param int $code
      *
-     * @throws InvalidArgumentException if the HTTP status code is invalid
+     * @throws \InvalidArgumentException if the HTTP status code is invalid
      *
      * @return int
      */
-    public static function filterStatusCode($code)
+    public static function filterStatusCode(int $code): int
     {
         $code = filter_var($code, FILTER_VALIDATE_INT, ['options' => [
             'min_range' => self::MINIMUM,
