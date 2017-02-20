@@ -21,7 +21,6 @@ $ composer require narrowspark/http-status
 ## Usage
 
 ``` php
-
 use Narrowspark\HttpStatus\HttpStatus;
 
 // get status message from code
@@ -42,7 +41,6 @@ use Narrowspark\HttpStatus\HttpStatus;
 
 // get status name from code
 echo HttpStatus::getReasonPhrase(HttpStatus::STATUS_MOVED_PERMANENTLY); // Moved Permanently
-
 ```
 
 ## HTTP status code classes ([from RFC7231](//tools.ietf.org/html/rfc7231#section-6))
