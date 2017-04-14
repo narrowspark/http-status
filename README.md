@@ -1,24 +1,26 @@
-# http-status
+<h2 align="center">Http Status</h2>
+<h3 align="center">A package for working with HTTP statuses.</h3>
+<p align="center">
+    <a href="https://github.com/narrowspark/http-status/releases"><img src="https://img.shields.io/packagist/v/narrowspark/http-status.svg?style=flat-square"></a>
+    <a href="https://php.net/"><img src="https://img.shields.io/badge/php-%5E7.0.0-8892BF.svg?style=flat-square"></a>
+    <a href="https://travis-ci.org/narrowspark/http-status"><img src="https://img.shields.io/travis/narrowspark/http-status/master.svg?style=flat-square"></a>
+    <a href="https://scrutinizer-ci.com/g/narrowspark/http-status/code-structure"><img src="https://img.shields.io/scrutinizer/coverage/g/narrowspark/http-status.svg?style=flat-square"></a>
+    <a href="https://scrutinizer-ci.com/g/narrowspark/http-status"><img src="https://img.shields.io/scrutinizer/g/narrowspark/http-status.svg?style=flat-square"></a>
+    <a href="https://packagist.org/packages/narrowspark/http-status"><img src="https://img.shields.io/packagist/dt/narrowspark/http-status.svg?style=flat-square"></a>
+    <a href="http://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square"></a>
+</p>
 
-[![Author](http://img.shields.io/badge/author-@anolilab-blue.svg?style=flat-square)](https://twitter.com/anolilab)
-[![Total Downloads](https://img.shields.io/packagist/dt/narrowspark/http-status.svg?style=flat-square)](https://packagist.org/packages/narrowspark/http-status)
-[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
-
-## Master
-
-[![Build Status](https://img.shields.io/travis/narrowspark/http-status/master.svg?style=flat-square)](https://travis-ci.org/narrowspark/http-status)
-[![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/narrowspark/http-status.svg?style=flat-square)](https://scrutinizer-ci.com/g/narrowspark/http-status/code-structure)
-[![Quality Score](https://img.shields.io/scrutinizer/g/narrowspark/http-status.svg?style=flat-square)](https://scrutinizer-ci.com/g/narrowspark/http-status)
-
-## Install
+Installation
+------------
 
 Via Composer
 
-``` bash
+```bash
 $ composer require narrowspark/http-status
 ```
 
-## Usage
+Use
+------------
 
 ``` php
 use Narrowspark\HttpStatus\HttpStatus;
@@ -132,24 +134,27 @@ Code  |  Message  |  RFC
 511 | Network Authentication Required | [RFC6585]
 512-599 | *Unassigned* |
 
-## Change log
+Change log
+------------
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
 
-## Testing
+Testing
+------------
 
 ``` bash
 $ vendor/bin/phpunit
 ```
 
-## Contributing
+Contributing
+------------
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+If you would like to help take a look at the [list of issues](http://github.com/narrowspark/http-emitter/issues) and check our [Contributing](CONTRIBUTING.md) guild.
 
-## Credits
+> **Note:** Please note that this project is released with a Contributor Code of Conduct. By participating in this project you agree to abide by its terms.
 
-- [All Contributors](../../contributors)
 
-## License
+License
+---------------
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+The Narrowspark http-emitter is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
