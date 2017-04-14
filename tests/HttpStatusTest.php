@@ -2,6 +2,8 @@
 declare(strict_types=1);
 namespace Narrowspark\HttpStatus\Tests;
 
+use DOMDocument;
+use DomXPath;
 use Narrowspark\HttpStatus\Exception;
 use Narrowspark\HttpStatus\HttpStatus;
 use PHPUnit\Framework\TestCase;
@@ -338,7 +340,7 @@ class HttpStatusTest extends TestCase
             $this->markTestSkipped('The "https" wrapper is not available');
         }
 
-        $ianaHttpStatusCodes = new \DOMDocument();
+        $ianaHttpStatusCodes = new DOMDocument();
 
         libxml_set_streams_context(stream_context_create([
             'http' => [
@@ -354,7 +356,7 @@ class HttpStatusTest extends TestCase
         }
 
         $ianaCodesReasonPhrases = [];
-        $xpath                  = new \DomXPath($ianaHttpStatusCodes);
+        $xpath                  = new DomXPath($ianaHttpStatusCodes);
         $xpath->registerNamespace('ns', 'http://www.iana.org/assignments');
         $records = $xpath->query('//ns:record');
 
