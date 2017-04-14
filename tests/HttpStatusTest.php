@@ -2,8 +2,6 @@
 declare(strict_types=1);
 namespace Narrowspark\HttpStatus\Tests;
 
-use DOMDocument;
-use DomXPath;
 use Narrowspark\HttpStatus\Exception;
 use Narrowspark\HttpStatus\HttpStatus;
 use PHPUnit\Framework\TestCase;
@@ -327,34 +325,53 @@ class HttpStatusTest extends TestCase
         }
     }
 
+    /**
+     * @link      http://github.com/zendframework/zend-diactoros for the canonical source repository
+     *
+     * @author    Fábio Pacheco
+     * @copyright Copyright (c) 2015-2016 Zend Technologies USA Inc. (http://www.zend.com)
+     * @license   https://github.com/zendframework/zend-diactoros/blob/master/LICENSE.md New BSD License
+     */
     public function ianaCodesReasonPhrasesProvider(): array
     {
-        $ianaHttpStatusCodes = new DOMDocument();
-        $ianaHttpStatusCodes->loadXML(file_get_contents('https://www.iana.org/assignments/http-status-codes/http-status-codes.xml'));
+        if (! in_array('https', stream_get_wrappers(), true)) {
+            $this->markTestSkipped('The "https" wrapper is not available');
+        }
+
+        $ianaHttpStatusCodes = new \DOMDocument();
+
+        libxml_set_streams_context(stream_context_create([
+            'http' => [
+                'method'  => 'GET',
+                'timeout' => 30,
+            ],
+        ]));
+
+        $ianaHttpStatusCodes->load('https://www.iana.org/assignments/http-status-codes/http-status-codes.xml');
+
+        if (! $ianaHttpStatusCodes->relaxNGValidate(__DIR__ . '/schema/http-status-codes.rng')) {
+            self::fail('Invalid IANA\'s HTTP status code list.');
+        }
 
         $ianaCodesReasonPhrases = [];
-
-        $xpath = new DomXPath($ianaHttpStatusCodes);
+        $xpath                  = new \DomXPath($ianaHttpStatusCodes);
         $xpath->registerNamespace('ns', 'http://www.iana.org/assignments');
-
         $records = $xpath->query('//ns:record');
 
         foreach ($records as $record) {
             $value       = $xpath->query('.//ns:value', $record)->item(0)->nodeValue;
             $description = $xpath->query('.//ns:description', $record)->item(0)->nodeValue;
 
-            if ($description === 'Unassigned' | $description === '(Unused)') {
+            if (in_array($description, ['Unassigned', '(Unused)'], true)) {
                 continue;
             }
 
-            $range = preg_match('/^([0-9]+)\s*\-\s*([0-9]+)$/', $value, $matches);
-
-            if (! $range) {
-                $ianaCodesReasonPhrases[] = [$value, $description];
-            } else {
+            if (preg_match('/^([0-9]+)\s*\-\s*([0-9]+)$/', $value, $matches)) {
                 for ($value = $matches[1]; $value <= $matches[2]; ++$value) {
                     $ianaCodesReasonPhrases[] = [$value, $description];
                 }
+            } else {
+                $ianaCodesReasonPhrases[] = [$value, $description];
             }
         }
 
