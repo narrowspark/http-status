@@ -4,8 +4,8 @@ namespace Narrowspark\HttpStatus\Tests;
 
 use DOMDocument;
 use DomXPath;
-use Narrowspark\HttpStatus\Exception;
 use Narrowspark\HttpStatus\Contract\Exception\HttpException as HttpExceptionContract;
+use Narrowspark\HttpStatus\Exception;
 use Narrowspark\HttpStatus\HttpStatus;
 use PHPUnit\Framework\TestCase;
 

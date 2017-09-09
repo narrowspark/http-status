@@ -3,7 +3,6 @@ declare(strict_types=1);
 namespace Narrowspark\HttpStatus;
 
 use Fig\Http\Message\StatusCodeInterface;
-use Narrowspark\HttpStatus\Exception\InvalidArgumentException;
 use Narrowspark\HttpStatus\Exception\BadGatewayException;
 use Narrowspark\HttpStatus\Exception\BadRequestException;
 use Narrowspark\HttpStatus\Exception\ConflictException;
@@ -16,6 +15,7 @@ use Narrowspark\HttpStatus\Exception\HttpVersionNotSupportedException;
 use Narrowspark\HttpStatus\Exception\ImATeapotException;
 use Narrowspark\HttpStatus\Exception\InsufficientStorageException;
 use Narrowspark\HttpStatus\Exception\InternalServerErrorException;
+use Narrowspark\HttpStatus\Exception\InvalidArgumentException;
 use Narrowspark\HttpStatus\Exception\LengthRequiredException;
 use Narrowspark\HttpStatus\Exception\LockedException;
 use Narrowspark\HttpStatus\Exception\LoopDetectedException;
@@ -26,6 +26,7 @@ use Narrowspark\HttpStatus\Exception\NotAcceptableException;
 use Narrowspark\HttpStatus\Exception\NotExtendedException;
 use Narrowspark\HttpStatus\Exception\NotFoundException;
 use Narrowspark\HttpStatus\Exception\NotImplementedException;
+use Narrowspark\HttpStatus\Exception\OutOfBoundsException;
 use Narrowspark\HttpStatus\Exception\PayloadTooLargeException;
 use Narrowspark\HttpStatus\Exception\PaymentRequiredException;
 use Narrowspark\HttpStatus\Exception\PreconditionFailedException;
@@ -43,7 +44,6 @@ use Narrowspark\HttpStatus\Exception\UnprocessableEntityException;
 use Narrowspark\HttpStatus\Exception\UnsupportedMediaTypeException;
 use Narrowspark\HttpStatus\Exception\UpgradeRequiredException;
 use Narrowspark\HttpStatus\Exception\VariantAlsoNegotiatesException;
-use Narrowspark\HttpStatus\Exception\OutOfBoundsException;
 
 class HttpStatus implements StatusCodeInterface
 {
