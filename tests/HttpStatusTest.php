@@ -119,7 +119,7 @@ class HttpStatusTest extends TestCase
         511 => Exception\NetworkAuthenticationRequiredException::class,
     ];
 
-    public function testGetReasonMessage()
+    public function testGetReasonMessage(): void
     {
         foreach ($this->errorPhrases as $code => $text) {
             self::assertSame(
@@ -134,7 +134,7 @@ class HttpStatusTest extends TestCase
      * @expectedException \Narrowspark\HttpStatus\Exception\InvalidArgumentException
      * @expectedExceptionMessage The submitted code "700" must be a positive integer between 100 and 599.
      */
-    public function testGetReasonPhraseToThrowInvalidArgumentException()
+    public function testGetReasonPhraseToThrowInvalidArgumentException(): void
     {
         HttpStatus::getReasonPhrase(700);
     }
@@ -143,7 +143,7 @@ class HttpStatusTest extends TestCase
      * @expectedException \Narrowspark\HttpStatus\Exception\OutOfBoundsException
      * @expectedExceptionMessage Unknown http status code: `509`.
      */
-    public function testGetReasonPhraseToThrowOutOfBoundsException()
+    public function testGetReasonPhraseToThrowOutOfBoundsException(): void
     {
         HttpStatus::getReasonPhrase(509);
     }
@@ -152,7 +152,7 @@ class HttpStatusTest extends TestCase
      * @expectedException \Narrowspark\HttpStatus\Exception\InvalidArgumentException
      * @expectedExceptionMessage The submitted code "700" must be a positive integer between 100 and 599.
      */
-    public function testGetReasonMessageToThrowInvalidArgumentException()
+    public function testGetReasonMessageToThrowInvalidArgumentException(): void
     {
         HttpStatus::getReasonMessage(700);
     }
@@ -161,12 +161,12 @@ class HttpStatusTest extends TestCase
      * @expectedException \Narrowspark\HttpStatus\Exception\OutOfBoundsException
      * @expectedExceptionMessage Unknown http status code: `509`.
      */
-    public function testGetReasonMessageToThrowOutOfBoundsException()
+    public function testGetReasonMessageToThrowOutOfBoundsException(): void
     {
         HttpStatus::getReasonMessage(509);
     }
 
-    public function testIfAllExceptionsAreExtendedFromTheRightClient()
+    public function testIfAllExceptionsAreExtendedFromTheRightClient(): void
     {
         $clientCount = 0;
         $serverCount = 0;
@@ -195,7 +195,7 @@ class HttpStatusTest extends TestCase
      * @param mixed $code
      * @param mixed $reasonPhrase
      */
-    public function testReasonPhraseDefaultsAgainstIana($code, $reasonPhrase)
+    public function testReasonPhraseDefaultsAgainstIana($code, $reasonPhrase): void
     {
         self::assertEquals(
             $reasonPhrase,
@@ -210,7 +210,7 @@ class HttpStatusTest extends TestCase
      * @param mixed $code
      * @param mixed $reasonPhrase
      */
-    public function testGetReasonExceptionAgainstIana($code, $reasonPhrase)
+    public function testGetReasonExceptionAgainstIana($code, $reasonPhrase): void
     {
         // skip http code from 100 to 399
         if ((100 <= $code) && ($code <= 399)) {
@@ -226,7 +226,7 @@ class HttpStatusTest extends TestCase
     }
 
     /**
-     * @link http://github.com/zendframework/zend-diactoros for the canonical source repository
+     * @see http://github.com/zendframework/zend-diactoros for the canonical source repository
      *
      * @author    Fábio Pacheco
      * @copyright Copyright (c) 2015-2016 Zend Technologies USA Inc. (http://www.zend.com)

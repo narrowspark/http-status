@@ -24,7 +24,7 @@ abstract class AbstractClientErrorException extends BaseRuntimeException impleme
     private $headers;
 
     /**
-     * @param \Throwable|null $previous
+     * @param null|\Throwable $previous
      * @param array           $headers
      * @param int             $code
      */
@@ -56,7 +56,7 @@ abstract class AbstractClientErrorException extends BaseRuntimeException impleme
      *
      * @param array $headers Response headers
      */
-    public function setHeaders(array $headers)
+    public function setHeaders(array $headers): void
     {
         $this->headers = $headers;
     }

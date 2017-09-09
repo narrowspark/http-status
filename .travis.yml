@@ -2,11 +2,16 @@ language: php
 
 sudo: false
 
-php:
-  - 7.0
-  - 7.1
-
 matrix:
+  include:
+    - php: 7.1
+      env: SETUP=basic CS=true
+    - php: 7.1
+      env: SETUP=basic SEND_COVERAGE=true PHPUNIT=true
+    - php: 7.1
+      env: SETUP=basic PHPSTAN=true
+#    - php: 7.2
+#      env: SETUP=basic PHPUNIT=true
   fast_finish: true
 
 cache:
@@ -17,17 +22,20 @@ cache:
 before_install:
   - composer validate
 
-install:
-  - composer install --no-interaction --prefer-dist --no-progress --profile
-
 before_script:
-  - mkdir -p "$HOME/.php-cs-fixer"
+  - chmod a+x ./build/travis/script.sh && chmod a+x ./build/travis/after_success.sh
+
+install:
+  - travis_retry composer install --no-interaction --prefer-dist --no-progress --profile --no-suggest
 
 script:
-  - mkdir -p build/logs
-  - vendor/bin/phpunit -c phpunit.xml.dist --verbose --coverage-text="php://stdout"
-  - vendor/bin/php-cs-fixer fix --config=.php_cs --verbose --diff --dry-run
+  - ./build/travis/script.sh
 
-after_script:
-  - wget https://scrutinizer-ci.com/ocular.phar
-  - php ocular.phar code-coverage:upload --format=php-clover build/logs/coverage.clover
+after_success:
+  - ./build/travis/after_success.sh
+
+notifications:
+  email: false
+  webhooks:
+    urls:
+      - https://webhooks.gitter.im/e/5886ad33ac123a7c06b0

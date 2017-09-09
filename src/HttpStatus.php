@@ -341,7 +341,7 @@ class HttpStatus implements StatusCodeInterface
      * @throws \Narrowspark\HttpStatus\Exception\VariantAlsoNegotiatesException
      * @throws \Narrowspark\HttpStatus\Exception\OutOfBoundsException
      */
-    public static function getReasonException(int $code)
+    public static function getReasonException(int $code): void
     {
         $code = static::filterStatusCode($code);
 
