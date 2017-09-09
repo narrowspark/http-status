@@ -12,5 +12,5 @@ class NotExtendedException extends AbstractServerErrorException
     /**
      * @var int
      */
-    protected $code = 510;
+    protected $statusCode = 510;
 }

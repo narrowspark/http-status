@@ -12,5 +12,5 @@ class NotFoundException extends AbstractClientErrorException
     /**
      * @var int
      */
-    protected $code = 404;
+    protected $statusCode = 404;
 }

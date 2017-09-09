@@ -12,5 +12,5 @@ class PaymentRequiredException extends AbstractClientErrorException
     /**
      * @var int
      */
-    protected $code = 402;
+    protected $statusCode = 402;
 }

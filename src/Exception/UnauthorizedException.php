@@ -12,5 +12,5 @@ class UnauthorizedException extends AbstractClientErrorException
     /**
      * @var int
      */
-    protected $code = 401;
+    protected $statusCode = 401;
 }

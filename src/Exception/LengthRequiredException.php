@@ -12,5 +12,5 @@ class LengthRequiredException extends AbstractClientErrorException
     /**
      * @var int
      */
-    protected $code = 411;
+    protected $statusCode = 411;
 }

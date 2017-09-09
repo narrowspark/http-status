@@ -12,5 +12,5 @@ class ConflictException extends AbstractClientErrorException
     /**
      * @var int
      */
-    protected $code = 409;
+    protected $statusCode = 409;
 }

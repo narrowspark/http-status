@@ -20,11 +20,11 @@
         }
     ],
     "require": {
-        "php"                                  : "^7.0",
+        "php"                                  : "^7.1",
         "fig/http-message-util"                : "^1.1"
     },
     "require-dev": {
-        "narrowspark/php-cs-fixer-config"      : "^2.2",
+        "narrowspark/php-cs-fixer-config"      : "^2.0",
         "phpunit/phpunit"                      : "^6.0"
     },
     "provide": {
@@ -42,7 +42,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master"                       : "3.0-dev"
+            "dev-master"                       : "4.0-dev"
         }
     },
     "suggest": {

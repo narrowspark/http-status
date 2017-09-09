@@ -12,5 +12,5 @@ class FailedDependencyException extends AbstractClientErrorException
     /**
      * @var int
      */
-    protected $code = 424;
+    protected $statusCode = 424;
 }

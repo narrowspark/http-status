@@ -12,5 +12,5 @@ class RequestHeaderFieldsTooLargeException extends AbstractClientErrorException
     /**
      * @var int
      */
-    protected $code = 431;
+    protected $statusCode = 431;
 }

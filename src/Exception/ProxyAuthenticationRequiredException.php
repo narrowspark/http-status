@@ -12,5 +12,5 @@ class ProxyAuthenticationRequiredException extends AbstractClientErrorException
     /**
      * @var int
      */
-    protected $code = 407;
+    protected $statusCode = 407;
 }

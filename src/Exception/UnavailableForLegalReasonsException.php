@@ -12,5 +12,5 @@ class UnavailableForLegalReasonsException extends AbstractClientErrorException
     /**
      * @var int
      */
-    protected $code = 451;
+    protected $statusCode = 451;
 }

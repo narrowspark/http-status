@@ -3,7 +3,7 @@ declare(strict_types=1);
 namespace Narrowspark\HttpStatus;
 
 use Fig\Http\Message\StatusCodeInterface;
-use InvalidArgumentException;
+use Narrowspark\HttpStatus\Exception\InvalidArgumentException;
 use Narrowspark\HttpStatus\Exception\BadGatewayException;
 use Narrowspark\HttpStatus\Exception\BadRequestException;
 use Narrowspark\HttpStatus\Exception\ConflictException;
@@ -43,7 +43,7 @@ use Narrowspark\HttpStatus\Exception\UnprocessableEntityException;
 use Narrowspark\HttpStatus\Exception\UnsupportedMediaTypeException;
 use Narrowspark\HttpStatus\Exception\UpgradeRequiredException;
 use Narrowspark\HttpStatus\Exception\VariantAlsoNegotiatesException;
-use OutOfBoundsException;
+use Narrowspark\HttpStatus\Exception\OutOfBoundsException;
 
 class HttpStatus implements StatusCodeInterface
 {
@@ -258,8 +258,8 @@ class HttpStatus implements StatusCodeInterface
      *
      * @param int $code http status code
      *
-     * @throws \InvalidArgumentException If the requested $code is not valid
-     * @throws \OutOfBoundsException     If the requested $code is not found
+     * @throws \Narrowspark\HttpStatus\Exception\InvalidArgumentException If the requested $code is not valid
+     * @throws \Narrowspark\HttpStatus\Exception\OutOfBoundsException     If the requested $code is not found
      *
      * @return string Returns message for the given status code
      */
@@ -279,8 +279,8 @@ class HttpStatus implements StatusCodeInterface
      *
      * @param int $code http status code
      *
-     * @throws \InvalidArgumentException If the requested $code is not valid
-     * @throws \\OutOfBoundsException    If the requested $code is not found
+     * @throws \Narrowspark\HttpStatus\Exception\InvalidArgumentException If the requested $code is not valid
+     * @throws \Narrowspark\HttpStatus\Exception\OutOfBoundsException     If the requested $code is not found
      *
      * @return string Returns name for the given status code
      */
@@ -300,7 +300,7 @@ class HttpStatus implements StatusCodeInterface
      *
      * @param int $code http status code
      *
-     * @throws \InvalidArgumentException
+     * @throws \Narrowspark\HttpStatus\Exception\InvalidArgumentException
      * @throws \Narrowspark\HttpStatus\Exception\BadGatewayException
      * @throws \Narrowspark\HttpStatus\Exception\BadRequestException
      * @throws \Narrowspark\HttpStatus\Exception\ConflictException
@@ -339,6 +339,7 @@ class HttpStatus implements StatusCodeInterface
      * @throws \Narrowspark\HttpStatus\Exception\UnsupportedMediaTypeException
      * @throws \Narrowspark\HttpStatus\Exception\UpgradeRequiredException
      * @throws \Narrowspark\HttpStatus\Exception\VariantAlsoNegotiatesException
+     * @throws \Narrowspark\HttpStatus\Exception\OutOfBoundsException
      */
     public static function getReasonException(int $code)
     {
@@ -358,21 +359,24 @@ class HttpStatus implements StatusCodeInterface
      *
      * @param int $code
      *
-     * @throws \InvalidArgumentException if the HTTP status code is invalid
+     * @throws \Narrowspark\HttpStatus\Exception\InvalidArgumentException if the HTTP status code is invalid
      *
      * @return int
      */
     public static function filterStatusCode(int $code): int
     {
-        $code = filter_var($code, FILTER_VALIDATE_INT, ['options' => [
+        $filteredCode = filter_var($code, FILTER_VALIDATE_INT, ['options' => [
             'min_range' => self::MINIMUM,
             'max_range' => self::MAXIMUM,
         ]]);
 
-        if (! $code) {
-            throw new InvalidArgumentException(
-                'The submitted code must be a positive integer between ' . self::MINIMUM . ' and ' . self::MAXIMUM . '.'
-            );
+        if (! $filteredCode) {
+            throw new InvalidArgumentException(sprintf(
+                'The submitted code "%s" must be a positive integer between %s and %s.',
+                $code,
+                self::MINIMUM,
+                self::MAXIMUM
+            ));
         }
 
         return $code;

@@ -12,5 +12,5 @@ class GoneException extends AbstractClientErrorException
     /**
      * @var int
      */
-    protected $code = 410;
+    protected $statusCode = 410;
 }

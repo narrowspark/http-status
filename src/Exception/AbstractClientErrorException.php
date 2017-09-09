@@ -2,7 +2,11 @@
 declare(strict_types=1);
 namespace Narrowspark\HttpStatus\Exception;
 
-abstract class AbstractClientErrorException extends \Exception
+use Throwable;
+use RuntimeException as BaseRuntimeException;
+use Narrowspark\HttpStatus\Contract\Exception\HttpException as HttpExceptionContract;
+
+abstract class AbstractClientErrorException extends BaseRuntimeException implements HttpExceptionContract
 {
     /**
      * @var string
@@ -12,5 +16,48 @@ abstract class AbstractClientErrorException extends \Exception
     /**
      * @var int
      */
-    protected $code = 4;
+    protected $statusCode = 4;
+
+    /**
+     * @var array
+     */
+    private $headers;
+
+    /**
+     * @param \Throwable|null $previous
+     * @param array           $headers
+     * @param int             $code
+     */
+    public function __construct(Throwable $previous = null, array $headers = [], int $code = 0)
+    {
+        $this->headers = $headers;
+
+        parent::__construct($this->message, $code, $previous);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getStatusCode(): int
+    {
+        return $this->statusCode;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getHeaders(): array
+    {
+        return $this->headers;
+    }
+
+    /**
+     * Set response headers.
+     *
+     * @param array $headers Response headers
+     */
+    public function setHeaders(array $headers)
+    {
+        $this->headers = $headers;
+    }
 }

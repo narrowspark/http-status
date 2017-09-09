@@ -12,5 +12,5 @@ class ImATeapotException extends AbstractClientErrorException
     /**
      * @var int
      */
-    protected $code = 418;
+    protected $statusCode = 418;
 }

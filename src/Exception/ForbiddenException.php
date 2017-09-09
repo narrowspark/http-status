@@ -12,5 +12,5 @@ class ForbiddenException extends AbstractClientErrorException
     /**
      * @var int
      */
-    protected $code = 403;
+    protected $statusCode = 403;
 }

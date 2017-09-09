@@ -12,5 +12,5 @@ class LockedException extends AbstractClientErrorException
     /**
      * @var int
      */
-    protected $code = 423;
+    protected $statusCode = 423;
 }

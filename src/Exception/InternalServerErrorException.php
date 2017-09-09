@@ -12,5 +12,5 @@ class InternalServerErrorException extends AbstractServerErrorException
     /**
      * @var int
      */
-    protected $code = 500;
+    protected $statusCode = 500;
 }

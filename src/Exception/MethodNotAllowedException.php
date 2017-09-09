@@ -12,5 +12,5 @@ class MethodNotAllowedException extends AbstractClientErrorException
     /**
      * @var int
      */
-    protected $code = 405;
+    protected $statusCode = 405;
 }

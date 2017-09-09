@@ -12,5 +12,5 @@ class BadRequestException extends AbstractClientErrorException
     /**
      * @var int
      */
-    protected $code = 400;
+    protected $statusCode = 400;
 }
