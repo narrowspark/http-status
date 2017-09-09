@@ -2,9 +2,9 @@
 declare(strict_types=1);
 namespace Narrowspark\HttpStatus\Exception;
 
-use Throwable;
-use RuntimeException as BaseRuntimeException;
 use Narrowspark\HttpStatus\Contract\Exception\HttpException as HttpExceptionContract;
+use RuntimeException as BaseRuntimeException;
+use Throwable;
 
 abstract class AbstractClientErrorException extends BaseRuntimeException implements HttpExceptionContract
 {
