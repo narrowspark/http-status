@@ -12,5 +12,5 @@ class MisdirectedRequestException extends AbstractClientErrorException
     /**
      * @var int
      */
-    protected $code = 421;
+    protected $statusCode = 421;
 }

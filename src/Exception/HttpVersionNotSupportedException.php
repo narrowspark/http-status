@@ -12,5 +12,5 @@ class HttpVersionNotSupportedException extends AbstractServerErrorException
     /**
      * @var int
      */
-    protected $code = 505;
+    protected $statusCode = 505;
 }

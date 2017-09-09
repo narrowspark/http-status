@@ -12,5 +12,5 @@ class VariantAlsoNegotiatesException extends AbstractServerErrorException
     /**
      * @var int
      */
-    protected $code = 506;
+    protected $statusCode = 506;
 }

@@ -12,5 +12,5 @@ class LoopDetectedException extends AbstractServerErrorException
     /**
      * @var int
      */
-    protected $code = 508;
+    protected $statusCode = 508;
 }

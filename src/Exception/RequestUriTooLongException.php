@@ -12,5 +12,5 @@ class RequestUriTooLongException extends AbstractClientErrorException
     /**
      * @var int
      */
-    protected $code = 414;
+    protected $statusCode = 414;
 }

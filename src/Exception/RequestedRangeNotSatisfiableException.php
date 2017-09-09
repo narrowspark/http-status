@@ -12,5 +12,5 @@ class RequestedRangeNotSatisfiableException extends AbstractClientErrorException
     /**
      * @var int
      */
-    protected $code = 416;
+    protected $statusCode = 416;
 }

@@ -12,5 +12,5 @@ class GatewayTimeoutException extends AbstractServerErrorException
     /**
      * @var int
      */
-    protected $code = 504;
+    protected $statusCode = 504;
 }

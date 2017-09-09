@@ -12,5 +12,5 @@ class TooManyRequestsException extends AbstractClientErrorException
     /**
      * @var int
      */
-    protected $code = 429;
+    protected $statusCode = 429;
 }

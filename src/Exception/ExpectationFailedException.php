@@ -12,5 +12,5 @@ class ExpectationFailedException extends AbstractClientErrorException
     /**
      * @var int
      */
-    protected $code = 417;
+    protected $statusCode = 417;
 }

@@ -12,5 +12,5 @@ class RequestTimeoutException extends AbstractClientErrorException
     /**
      * @var int
      */
-    protected $code = 408;
+    protected $statusCode = 408;
 }

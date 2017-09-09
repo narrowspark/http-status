@@ -12,5 +12,5 @@ class ServiceUnavailableException extends AbstractServerErrorException
     /**
      * @var int
      */
-    protected $code = 503;
+    protected $statusCode = 503;
 }

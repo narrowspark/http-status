@@ -12,5 +12,5 @@ class UnsupportedMediaTypeException extends AbstractClientErrorException
     /**
      * @var int
      */
-    protected $code = 415;
+    protected $statusCode = 415;
 }

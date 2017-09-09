@@ -12,5 +12,5 @@ class UpgradeRequiredException extends AbstractClientErrorException
     /**
      * @var int
      */
-    protected $code = 426;
+    protected $statusCode = 426;
 }

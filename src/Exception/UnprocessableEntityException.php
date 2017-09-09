@@ -12,5 +12,5 @@ class UnprocessableEntityException extends AbstractClientErrorException
     /**
      * @var int
      */
-    protected $code = 422;
+    protected $statusCode = 422;
 }

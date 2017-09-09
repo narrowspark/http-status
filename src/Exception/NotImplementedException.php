@@ -12,5 +12,5 @@ class NotImplementedException extends AbstractServerErrorException
     /**
      * @var int
      */
-    protected $code = 501;
+    protected $statusCode = 501;
 }

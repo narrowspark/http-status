@@ -12,5 +12,5 @@ class PayloadTooLargeException extends AbstractClientErrorException
     /**
      * @var int
      */
-    protected $code = 413;
+    protected $statusCode = 413;
 }

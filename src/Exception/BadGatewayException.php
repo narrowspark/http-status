@@ -12,5 +12,5 @@ class BadGatewayException extends AbstractServerErrorException
     /**
      * @var int
      */
-    protected $code = 502;
+    protected $statusCode = 502;
 }

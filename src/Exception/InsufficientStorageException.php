@@ -12,5 +12,5 @@ class InsufficientStorageException extends AbstractServerErrorException
     /**
      * @var int
      */
-    protected $code = 507;
+    protected $statusCode = 507;
 }

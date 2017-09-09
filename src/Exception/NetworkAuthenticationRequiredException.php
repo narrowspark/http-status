@@ -12,5 +12,5 @@ class NetworkAuthenticationRequiredException extends AbstractServerErrorExceptio
     /**
      * @var int
      */
-    protected $code = 511;
+    protected $statusCode = 511;
 }

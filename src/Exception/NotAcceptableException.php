@@ -12,5 +12,5 @@ class NotAcceptableException extends AbstractClientErrorException
     /**
      * @var int
      */
-    protected $code = 406;
+    protected $statusCode = 406;
 }

@@ -12,5 +12,5 @@ class PreconditionFailedException extends AbstractClientErrorException
     /**
      * @var int
      */
-    protected $code = 412;
+    protected $statusCode = 412;
 }
