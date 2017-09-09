@@ -45,6 +45,8 @@ abstract class AbstractServerErrorException extends BaseRuntimeException impleme
 
     /**
      * {@inheritdoc}
+     *
+     * @codeCoverageIgnore
      */
     public function getHeaders(): array
     {
@@ -55,6 +57,10 @@ abstract class AbstractServerErrorException extends BaseRuntimeException impleme
      * Set response headers.
      *
      * @param array $headers Response headers
+     *
+     * @return void
+     *
+     * @codeCoverageIgnore
      */
     public function setHeaders(array $headers): void
     {

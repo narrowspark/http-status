@@ -346,7 +346,7 @@ class HttpStatus implements StatusCodeInterface
         $code = static::filterStatusCode($code);
 
         if (! isset(self::$statusNames[$code])) {
-            throw new OutOfBoundsException(sprintf('Unknown http status code: `%s`', $code));
+            throw new OutOfBoundsException(sprintf('Unknown http status code: `%s`.', $code));
         }
 
         if (isset(self::$phrasesExceptions[$code])) {

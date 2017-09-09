@@ -2,7 +2,7 @@
 <h3 align="center">A package for working with HTTP statuses.</h3>
 <p align="center">
     <a href="https://github.com/narrowspark/http-status/releases"><img src="https://img.shields.io/packagist/v/narrowspark/http-status.svg?style=flat-square"></a>
-    <a href="https://php.net/"><img src="https://img.shields.io/badge/php-%5E7.0.0-8892BF.svg?style=flat-square"></a>
+    <a href="https://php.net/"><img src="https://img.shields.io/badge/php-%5E7.1.0-8892BF.svg?style=flat-square"></a>
     <a href="https://travis-ci.org/narrowspark/http-status"><img src="https://img.shields.io/travis/narrowspark/http-status/master.svg?style=flat-square"></a>
     <a href="https://codecov.io/gh/narrowspark/http-status"><img src="https://img.shields.io/codecov/c/github/narrowspark/http-status/master.svg?style=flat-square"></a>
     <a href="https://packagist.org/packages/narrowspark/http-status"><img src="https://img.shields.io/packagist/dt/narrowspark/http-status.svg?style=flat-square"></a>

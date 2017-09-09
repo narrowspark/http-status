@@ -140,15 +140,6 @@ class HttpStatusTest extends TestCase
     }
 
     /**
-     * @expectedException \Narrowspark\HttpStatus\Exception\OutOfBoundsException
-     * @expectedExceptionMessage Unknown http status code: `509`.
-     */
-    public function testGetReasonPhraseToThrowOutOfBoundsException(): void
-    {
-        HttpStatus::getReasonPhrase(509);
-    }
-
-    /**
      * @expectedException \Narrowspark\HttpStatus\Exception\InvalidArgumentException
      * @expectedExceptionMessage The submitted code "700" must be a positive integer between 100 and 599.
      */
@@ -164,6 +155,24 @@ class HttpStatusTest extends TestCase
     public function testGetReasonMessageToThrowOutOfBoundsException(): void
     {
         HttpStatus::getReasonMessage(509);
+    }
+
+    /**
+     * @expectedException \Narrowspark\HttpStatus\Exception\OutOfBoundsException
+     * @expectedExceptionMessage Unknown http status code: `509`.
+     */
+    public function testGetReasonExceptionToThrowOutOfBoundsException(): void
+    {
+        HttpStatus::getReasonException(509);
+    }
+
+    /**
+     * @expectedException \Narrowspark\HttpStatus\Exception\OutOfBoundsException
+     * @expectedExceptionMessage Unknown http status code: `509`.
+     */
+    public function testGetReasonPhraseToThrowOutOfBoundsException(): void
+    {
+        HttpStatus::getReasonPhrase(509);
     }
 
     public function testIfAllExceptionsAreExtendedFromTheRightClient(): void
