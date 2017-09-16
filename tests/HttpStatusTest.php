@@ -286,4 +286,12 @@ class HttpStatusTest extends TestCase
 
         return $ianaCodesReasonPhrases;
     }
+
+    public function testChangeExceptionMessage()
+    {
+        $message   = 'new message';
+        $exception = new Exception\NotFoundException($message);
+
+        self::assertSame($message, $exception->getMessage());
+    }
 }

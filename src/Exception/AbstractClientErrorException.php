@@ -24,15 +24,23 @@ abstract class AbstractClientErrorException extends BaseRuntimeException impleme
     private $headers;
 
     /**
+     * Create a new Exception.
+     *
+     * @param null|string     $message
      * @param null|\Throwable $previous
      * @param array           $headers
      * @param int             $code
      */
-    public function __construct(Throwable $previous = null, array $headers = [], int $code = 0)
-    {
+    public function __construct(
+        string $message = null,
+        Throwable $previous = null,
+        array $headers = [],
+        int $code = 0
+    ) {
         $this->headers = $headers;
+        $message       = $message ?? $this->message;
 
-        parent::__construct($this->message, $code, $previous);
+        parent::__construct($message, $code, $previous);
     }
 
     /**
