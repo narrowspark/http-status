@@ -50,8 +50,8 @@ class HttpStatus implements StatusCodeInterface
     /**
      * Allowed range for a valid HTTP status code.
      */
-    const MINIMUM = 100;
-    const MAXIMUM = 599;
+    public const MINIMUM = 100;
+    public const MAXIMUM = 599;
 
     /**
      * Array of standard HTTP status code/reason phrases.
@@ -63,6 +63,7 @@ class HttpStatus implements StatusCodeInterface
         100 => 'Continue',
         101 => 'Switching Protocols',
         102 => 'Processing',
+        103 => 'Early Hints',
         // Successful 2xx
         200 => 'OK',
         201 => 'Created',
@@ -268,7 +269,7 @@ class HttpStatus implements StatusCodeInterface
         $code = static::filterStatusCode($code);
 
         if (! isset(self::$errorPhrases[$code])) {
-            throw new OutOfBoundsException(sprintf('Unknown http status code: `%s`.', $code));
+            throw new OutOfBoundsException(\sprintf('Unknown http status code: `%s`.', $code));
         }
 
         return self::$errorPhrases[$code];
@@ -289,7 +290,7 @@ class HttpStatus implements StatusCodeInterface
         $code = static::filterStatusCode($code);
 
         if (! isset(self::$statusNames[$code])) {
-            throw new OutOfBoundsException(sprintf('Unknown http status code: `%s`.', $code));
+            throw new OutOfBoundsException(\sprintf('Unknown http status code: `%s`.', $code));
         }
 
         return self::$statusNames[$code];
@@ -346,7 +347,7 @@ class HttpStatus implements StatusCodeInterface
         $code = static::filterStatusCode($code);
 
         if (! isset(self::$statusNames[$code])) {
-            throw new OutOfBoundsException(sprintf('Unknown http status code: `%s`.', $code));
+            throw new OutOfBoundsException(\sprintf('Unknown http status code: `%s`.', $code));
         }
 
         if (isset(self::$phrasesExceptions[$code])) {
@@ -365,13 +366,13 @@ class HttpStatus implements StatusCodeInterface
      */
     public static function filterStatusCode(int $code): int
     {
-        $filteredCode = filter_var($code, FILTER_VALIDATE_INT, ['options' => [
+        $filteredCode = \filter_var($code, \FILTER_VALIDATE_INT, ['options' => [
             'min_range' => self::MINIMUM,
             'max_range' => self::MAXIMUM,
         ]]);
 
         if (! $filteredCode) {
-            throw new InvalidArgumentException(sprintf(
+            throw new InvalidArgumentException(\sprintf(
                 'The submitted code "%s" must be a positive integer between %s and %s.',
                 $code,
                 self::MINIMUM,

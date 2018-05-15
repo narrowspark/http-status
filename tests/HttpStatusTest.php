@@ -186,11 +186,11 @@ class HttpStatusTest extends TestCase
             } catch (Exception\AbstractClientErrorException $client) {
                 self::assertInstanceOf($this->phrasesExceptions[$data[0]], $client);
 
-                ++$clientCount;
+                $clientCount++;
             } catch (Exception\AbstractServerErrorException $server) {
                 self::assertInstanceOf($this->phrasesExceptions[$data[0]], $server);
 
-                ++$serverCount;
+                $serverCount++;
             }
         }
 
@@ -276,7 +276,7 @@ class HttpStatusTest extends TestCase
             }
 
             if (preg_match('/^([0-9]+)\s*\-\s*([0-9]+)$/', $value, $matches)) {
-                for ($value = $matches[1]; $value <= $matches[2]; ++$value) {
+                for ($value = $matches[1]; $value <= $matches[2]; $value++) {
                     $ianaCodesReasonPhrases[] = [$value, $description];
                 }
             } else {
