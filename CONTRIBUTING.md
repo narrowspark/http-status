@@ -2,7 +2,7 @@
 
 Thank you for wanting to contribute to narrowspark!
 
-You can find below our guidelines for contribution, explaining how to send [pull requests](#pull-requests), [report issues](#filling-bugs) and [ask questions](#asking-questions), as well as which [workflow](#workflow) we're using while developing narrowspark.
+You can find below our guidelines for contribution, explaining how to send [pull requests](#pull-requests), [report issues](#filling-bugs) and [ask questions](#asking-questions), as well as which [workflow](#workflow) we're using while developing http-status.
 
 ## Maintainers
 
@@ -55,11 +55,11 @@ Please do not take offense if your ticket is closed. We're only trying to keep t
 
 ### Filling bugs
 
-If you found an error, typo, or any other flaw in the project, please report it using [GitHub Issues](https://github.com/narrowspark/framework/issues). Try searching the issues to see if there is an existing report of your bug, and if you'd find it, you could bump it by adding your test case there.
+If you found an error, typo, or any other flaw in the project, please report it using [GitHub Issues](https://github.com/narrowspark/http-status/issues). Try searching the issues to see if there is an existing report of your bug, and if you'd find it, you could bump it by adding your test case there.
 
 When it comes to bugs, the more details you provide, the easier it is to reproduce the issue and the faster it could be fixed.
 
-The best case would be if you'd provide a minimal reproducible test case illustrating a bug. For most cases just a code snippet would be enough, for more complex cases you can create gists or even test repos on GitHub — we would be glad to look into any problems you'll have with narrowspark.
+The best case would be if you'd provide a minimal reproducible test case illustrating a bug. For most cases just a code snippet would be enough, for more complex cases you can create gists or even test repos on GitHub — we would be glad to look into any problems you'll have with narrowspark http-status.
 
 ### Asking questions
 
@@ -73,7 +73,7 @@ If you'd like to work on an existing issue, just leave a comment on the issue sa
 
 If you've got an idea for a new feature, file an issue providing some details on your idea. Try searching the issues to see if there is an existing proposal for your feature and feel free to bump it by providing your use case or explaining why this feature is important for you.
 
-We should note that not everything should be done as a “narrowspark feature”, some features better be a narrowspark plug-ins, some are just not in the scope of the project.
+We should note that not everything should be done as a “narrowspark http-status feature”, some features better be a narrowspark http-status plug-ins, some are just not in the scope of the project.
 
 * * *
 
