@@ -64,7 +64,8 @@ Code  |  Message  |  RFC
 100 | Continue | [RFC7231, Section 6.2.1]
 101 | Switching Protocols | [RFC7231, Section 6.2.2]
 102 | Processing | [RFC2518]
-103-199 | *Unassigned* |
+103 | Http Early Hints | [RFC8297]
+104-199 | *Unassigned* |
 200 | OK | [RFC7231, Section 6.3.1]
 201 | Created | [RFC7231, Section 6.3.2]
 202 | Accepted | [RFC7231, Section 6.3.3]
