@@ -32,20 +32,20 @@ jobs:
       env: REMOVE_XDEBUG=true
 
     - stage: Coding standard
-      if: NOT cron
+      if: type != cron
       php: 7.2
       env: REMOVE_XDEBUG=true
       script:
         - ./vendor/bin/php-cs-fixer fix --verbose --diff --dry-run
     - stage: Coding standard
-      if: NOT cron
+      if: type != cron
       php: 7.2
       env: REMOVE_XDEBUG=false
       script:
         - ./vendor/bin/phpstan analyse -c phpstan.neon -l 7 src
 
     - stage: Coverage
-      if: NOT cron
+      if: type != cron
       php: 7.2
       env: REMOVE_XDEBUG=false
       script:
