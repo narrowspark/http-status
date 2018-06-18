@@ -1,7 +1,7 @@
 {
     "name": "narrowspark/http-status",
     "type": "library",
-    "description": " A psr-7 package for working with HTTP statuses.",
+    "description": "A psr-7 package for working with HTTP statuses.",
     "keywords": [
         "psr-7",
         "psr7",
