@@ -25,9 +25,6 @@ install:
 jobs:
   include:
     - stage: Test
-      php: 7.1
-      env: REMOVE_XDEBUG=true
-    - stage: Test
       php: 7.2
       env: REMOVE_XDEBUG=true
 
