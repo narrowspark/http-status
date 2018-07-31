@@ -14,7 +14,7 @@ interface HttpException extends Exception
     /**
      * Returns response headers.
      *
-     * @return array Response headers
+     * @return string[] Response headers
      */
     public function getHeaders(): array;
 }

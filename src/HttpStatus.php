@@ -332,11 +332,11 @@ class HttpStatus implements StatusCodeInterface
      * @throws \Narrowspark\HttpStatus\Exception\PreconditionRequiredException
      * @throws \Narrowspark\HttpStatus\Exception\ProxyAuthenticationRequiredException
      * @throws \Narrowspark\HttpStatus\Exception\RequestedRangeNotSatisfiableException
-     * @throws \Narrowspark\HttpStatus\Exception\RequestEntityTooLargeException
      * @throws \Narrowspark\HttpStatus\Exception\RequestHeaderFieldsTooLargeException
      * @throws \Narrowspark\HttpStatus\Exception\RequestTimeoutException
      * @throws \Narrowspark\HttpStatus\Exception\RequestUriTooLongException
      * @throws \Narrowspark\HttpStatus\Exception\ServiceUnavailableException
+     * @throws \Narrowspark\HttpStatus\Exception\TooEarlyException
      * @throws \Narrowspark\HttpStatus\Exception\TooManyRequestsException
      * @throws \Narrowspark\HttpStatus\Exception\UnauthorizedException
      * @throws \Narrowspark\HttpStatus\Exception\UnavailableForLegalReasonsException
@@ -375,7 +375,7 @@ class HttpStatus implements StatusCodeInterface
             'max_range' => self::MAXIMUM,
         ]]);
 
-        if (! $filteredCode) {
+        if ($filteredCode === false) {
             throw new InvalidArgumentException(\sprintf(
                 'The submitted code "%s" must be a positive integer between %s and %s.',
                 $code,

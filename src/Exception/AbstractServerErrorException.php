@@ -64,7 +64,7 @@ abstract class AbstractServerErrorException extends BaseRuntimeException impleme
     /**
      * Set response headers.
      *
-     * @param array $headers Response headers
+     * @param string[] $headers Response headers
      *
      * @return void
      *
