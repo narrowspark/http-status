@@ -37,6 +37,7 @@ use Narrowspark\HttpStatus\Exception\RequestHeaderFieldsTooLargeException;
 use Narrowspark\HttpStatus\Exception\RequestTimeoutException;
 use Narrowspark\HttpStatus\Exception\RequestUriTooLongException;
 use Narrowspark\HttpStatus\Exception\ServiceUnavailableException;
+use Narrowspark\HttpStatus\Exception\TooEarlyException;
 use Narrowspark\HttpStatus\Exception\TooManyRequestsException;
 use Narrowspark\HttpStatus\Exception\UnauthorizedException;
 use Narrowspark\HttpStatus\Exception\UnavailableForLegalReasonsException;
@@ -109,6 +110,7 @@ class HttpStatus implements StatusCodeInterface
         422 => 'Unprocessable Entity',
         423 => 'Locked',
         424 => 'Failed Dependency',
+        425 => 'Too Early',
         426 => 'Upgrade Required',
         428 => 'Precondition Required',
         429 => 'Too Many Requests',
@@ -179,6 +181,7 @@ class HttpStatus implements StatusCodeInterface
         422 => 'The request was well-formed but was unable to be followed due to semantic errors.',
         423 => 'The resource that is being accessed is locked.',
         424 => 'The request failed due to failure of a previous request.',
+        425 => 'The server is unwilling to risk processing a request that might be replayed.',
         426 => 'The server cannot process the request using the current protocol.',
         428 => 'The origin server requires the request to be conditional.',
         429 => 'The user has sent too many requests in a given amount of time.',
@@ -227,6 +230,7 @@ class HttpStatus implements StatusCodeInterface
         422 => UnprocessableEntityException::class,
         423 => LockedException::class,
         424 => FailedDependencyException::class,
+        425 => TooEarlyException::class,
         426 => UpgradeRequiredException::class,
         428 => PreconditionRequiredException::class,
         429 => TooManyRequestsException::class,

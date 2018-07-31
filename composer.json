@@ -22,18 +22,15 @@
         }
     ],
     "require": {
-        "php": "^7.1",
+        "php": "^7.2",
         "fig/http-message-util": "^1.1"
     },
     "provide": {
         "psr/http-message-implementation": "^1.0"
     },
     "require-dev": {
-        "narrowspark/php-cs-fixer-config": "^2.1.0",
-        "phpstan/phpstan": "^0.9.0",
-        "phpstan/phpstan-phpunit": "^0.9.0",
-        "phpstan/phpstan-strict-rules": "^0.9.0",
-        "phpunit/phpunit": "^7.0.0"
+        "narrowspark/coding-standard": "^1.0.0",
+        "phpunit/phpunit": "^7.2.0"
     },
     "config": {
         "optimize-autoloader": true,

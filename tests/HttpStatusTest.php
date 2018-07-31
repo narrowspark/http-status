@@ -9,7 +9,10 @@ use Narrowspark\HttpStatus\Exception;
 use Narrowspark\HttpStatus\HttpStatus;
 use PHPUnit\Framework\TestCase;
 
-class HttpStatusTest extends TestCase
+/**
+ * @internal
+ */
+final class HttpStatusTest extends TestCase
 {
     private $errorPhrases = [
         // Successful 2xx
@@ -57,6 +60,7 @@ class HttpStatusTest extends TestCase
         422 => 'The request was well-formed but was unable to be followed due to semantic errors.',
         423 => 'The resource that is being accessed is locked.',
         424 => 'The request failed due to failure of a previous request.',
+        425 => 'The server is unwilling to risk processing a request that might be replayed.',
         426 => 'The server cannot process the request using the current protocol.',
         428 => 'The origin server requires the request to be conditional.',
         429 => 'The user has sent too many requests in a given amount of time.',
@@ -100,6 +104,7 @@ class HttpStatusTest extends TestCase
         422 => Exception\UnprocessableEntityException::class,
         423 => Exception\LockedException::class,
         424 => Exception\FailedDependencyException::class,
+        425 => Exception\TooEarlyException::class,
         426 => Exception\UpgradeRequiredException::class,
         428 => Exception\PreconditionRequiredException::class,
         429 => Exception\TooManyRequestsException::class,
@@ -122,7 +127,7 @@ class HttpStatusTest extends TestCase
     public function testGetReasonMessage(): void
     {
         foreach ($this->errorPhrases as $code => $text) {
-            self::assertSame(
+            static::assertSame(
                 $text,
                 HttpStatus::getReasonMessage($code),
                 'Expected HttpStatus::getReasonMessage(' . $code . ') to return ' . $text
@@ -130,48 +135,43 @@ class HttpStatusTest extends TestCase
         }
     }
 
-    /**
-     * @expectedException \Narrowspark\HttpStatus\Exception\InvalidArgumentException
-     * @expectedExceptionMessage The submitted code "700" must be a positive integer between 100 and 599.
-     */
     public function testGetReasonPhraseToThrowInvalidArgumentException(): void
     {
+        $this->expectException(\Narrowspark\HttpStatus\Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The submitted code "700" must be a positive integer between 100 and 599.');
+
         HttpStatus::getReasonPhrase(700);
     }
 
-    /**
-     * @expectedException \Narrowspark\HttpStatus\Exception\InvalidArgumentException
-     * @expectedExceptionMessage The submitted code "700" must be a positive integer between 100 and 599.
-     */
     public function testGetReasonMessageToThrowInvalidArgumentException(): void
     {
+        $this->expectException(\Narrowspark\HttpStatus\Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The submitted code "700" must be a positive integer between 100 and 599.');
+
         HttpStatus::getReasonMessage(700);
     }
 
-    /**
-     * @expectedException \Narrowspark\HttpStatus\Exception\OutOfBoundsException
-     * @expectedExceptionMessage Unknown http status code: `509`.
-     */
     public function testGetReasonMessageToThrowOutOfBoundsException(): void
     {
+        $this->expectException(\Narrowspark\HttpStatus\Exception\OutOfBoundsException::class);
+        $this->expectExceptionMessage('Unknown http status code: `509`.');
+
         HttpStatus::getReasonMessage(509);
     }
 
-    /**
-     * @expectedException \Narrowspark\HttpStatus\Exception\OutOfBoundsException
-     * @expectedExceptionMessage Unknown http status code: `509`.
-     */
     public function testGetReasonExceptionToThrowOutOfBoundsException(): void
     {
+        $this->expectException(\Narrowspark\HttpStatus\Exception\OutOfBoundsException::class);
+        $this->expectExceptionMessage('Unknown http status code: `509`.');
+
         HttpStatus::getReasonException(509);
     }
 
-    /**
-     * @expectedException \Narrowspark\HttpStatus\Exception\OutOfBoundsException
-     * @expectedExceptionMessage Unknown http status code: `509`.
-     */
     public function testGetReasonPhraseToThrowOutOfBoundsException(): void
     {
+        $this->expectException(\Narrowspark\HttpStatus\Exception\OutOfBoundsException::class);
+        $this->expectExceptionMessage('Unknown http status code: `509`.');
+
         HttpStatus::getReasonPhrase(509);
     }
 
@@ -184,18 +184,18 @@ class HttpStatusTest extends TestCase
             try {
                 HttpStatus::getReasonException((int) $data[0]);
             } catch (Exception\AbstractClientErrorException $client) {
-                self::assertInstanceOf($this->phrasesExceptions[$data[0]], $client);
+                static::assertInstanceOf($this->phrasesExceptions[$data[0]], $client);
 
                 $clientCount++;
             } catch (Exception\AbstractServerErrorException $server) {
-                self::assertInstanceOf($this->phrasesExceptions[$data[0]], $server);
+                static::assertInstanceOf($this->phrasesExceptions[$data[0]], $server);
 
                 $serverCount++;
             }
         }
 
-        self::assertSame(27, $clientCount);
-        self::assertSame(11, $serverCount);
+        static::assertSame(28, $clientCount);
+        static::assertSame(11, $serverCount);
     }
 
     /**
@@ -206,7 +206,7 @@ class HttpStatusTest extends TestCase
      */
     public function testReasonPhraseDefaultsAgainstIana($code, $reasonPhrase): void
     {
-        self::assertEquals(
+        static::assertEquals(
             $reasonPhrase,
             HttpStatus::getReasonPhrase((int) $code),
             'Expected HttpStatus::getReasonPhrase(' . $code . ') to return ' . $reasonPhrase
@@ -223,14 +223,14 @@ class HttpStatusTest extends TestCase
     {
         // skip http code from 100 to 399
         if ((100 <= $code) && ($code <= 399)) {
-            self::assertTrue(true);
+            static::assertTrue(true);
         }
 
         try {
             HttpStatus::getReasonException((int) $code);
         } catch (HttpExceptionContract $exception) {
-            self::assertSame($code . ' ' . $reasonPhrase, $exception->getMessage());
-            self::assertSame((int) $code, $exception->getStatusCode());
+            static::assertSame($code . ' ' . $reasonPhrase, $exception->getMessage());
+            static::assertSame((int) $code, $exception->getStatusCode());
         }
     }
 
@@ -243,13 +243,13 @@ class HttpStatusTest extends TestCase
      */
     public function ianaCodesReasonPhrasesProvider(): array
     {
-        if (! in_array('https', stream_get_wrappers(), true)) {
-            $this->markTestSkipped('The "https" wrapper is not available');
+        if (! \in_array('https', \stream_get_wrappers(), true)) {
+            static::markTestSkipped('The "https" wrapper is not available');
         }
 
         $ianaHttpStatusCodes = new DOMDocument();
 
-        libxml_set_streams_context(stream_context_create([
+        \libxml_set_streams_context(\stream_context_create([
             'http' => [
                 'method'  => 'GET',
                 'timeout' => 30,
@@ -259,7 +259,7 @@ class HttpStatusTest extends TestCase
         $ianaHttpStatusCodes->load('https://www.iana.org/assignments/http-status-codes/http-status-codes.xml');
 
         if (! $ianaHttpStatusCodes->relaxNGValidate(__DIR__ . '/schema/http-status-codes.rng')) {
-            self::fail('Invalid IANA\'s HTTP status code list.');
+            static::fail('Invalid IANA\'s HTTP status code list.');
         }
 
         $ianaCodesReasonPhrases = [];
@@ -271,11 +271,11 @@ class HttpStatusTest extends TestCase
             $value       = $xpath->query('.//ns:value', $record)->item(0)->nodeValue;
             $description = $xpath->query('.//ns:description', $record)->item(0)->nodeValue;
 
-            if (in_array($description, ['Unassigned', '(Unused)'], true)) {
+            if (\in_array($description, ['Unassigned', '(Unused)'], true)) {
                 continue;
             }
 
-            if (preg_match('/^([0-9]+)\s*\-\s*([0-9]+)$/', $value, $matches)) {
+            if (\preg_match('/^([0-9]+)\s*\-\s*([0-9]+)$/', $value, $matches)) {
                 for ($value = $matches[1]; $value <= $matches[2]; $value++) {
                     $ianaCodesReasonPhrases[] = [$value, $description];
                 }
@@ -292,6 +292,6 @@ class HttpStatusTest extends TestCase
         $message   = 'new message';
         $exception = new Exception\NotFoundException($message);
 
-        self::assertSame($message, $exception->getMessage());
+        static::assertSame($message, $exception->getMessage());
     }
 }

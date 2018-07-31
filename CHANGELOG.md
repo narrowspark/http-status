@@ -1,6 +1,25 @@
 # Changelog
 
 All Notable changes to `http-status` will be documented in this file
+
+## NEXT - 2018-31-07
+
+### Added
+- upgraded the php version to v7.2
+- added new status code 425 (Too Early)
+
+### Deprecated
+- Nothing
+
+### Fixed
+- Nothing
+
+### Removed
+- Nothing
+
+### Security
+- Nothing
+
 ## NEXT - 2017-08-09
 
 ### Added
