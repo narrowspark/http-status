@@ -30,7 +30,7 @@
     },
     "require-dev": {
         "narrowspark/coding-standard": "^1.0.0",
-        "phpunit/phpunit": "^7.2.0"
+        "phpunit/phpunit": "^7.2.0 || ^8.0.0"
     },
     "config": {
         "optimize-autoloader": true,
