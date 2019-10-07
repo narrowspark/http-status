@@ -1,7 +1,3 @@
-# Changelog
-
-All Notable changes to `http-status` will be documented in this file
-
 ## NEXT - 2018-31-07
 
 ### Added

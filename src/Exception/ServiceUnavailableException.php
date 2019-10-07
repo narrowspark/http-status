@@ -1,16 +1,23 @@
 <?php
+
 declare(strict_types=1);
+
+/**
+ * This file is part of Narrowspark Framework.
+ *
+ * (c) Daniel Bannert <d.bannert@anolilab.de>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Narrowspark\HttpStatus\Exception;
 
-class ServiceUnavailableException extends AbstractServerErrorException
+final class ServiceUnavailableException extends AbstractServerErrorException
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $message = '503 Service Unavailable';
 
-    /**
-     * @var int
-     */
+    /** @var int */
     protected $statusCode = 503;
 }

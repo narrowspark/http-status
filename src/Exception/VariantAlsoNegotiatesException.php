@@ -1,16 +1,23 @@
 <?php
+
 declare(strict_types=1);
+
+/**
+ * This file is part of Narrowspark Framework.
+ *
+ * (c) Daniel Bannert <d.bannert@anolilab.de>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Narrowspark\HttpStatus\Exception;
 
-class VariantAlsoNegotiatesException extends AbstractServerErrorException
+final class VariantAlsoNegotiatesException extends AbstractServerErrorException
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $message = '506 Variant Also Negotiates';
 
-    /**
-     * @var int
-     */
+    /** @var int */
     protected $statusCode = 506;
 }

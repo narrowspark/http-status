@@ -1,5 +1,16 @@
 <?php
+
 declare(strict_types=1);
+
+/**
+ * This file is part of Narrowspark Framework.
+ *
+ * (c) Daniel Bannert <d.bannert@anolilab.de>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Narrowspark\HttpStatus;
 
 use Fig\Http\Message\StatusCodeInterface;
@@ -46,7 +57,7 @@ use Narrowspark\HttpStatus\Exception\UnsupportedMediaTypeException;
 use Narrowspark\HttpStatus\Exception\UpgradeRequiredException;
 use Narrowspark\HttpStatus\Exception\VariantAlsoNegotiatesException;
 
-class HttpStatus implements StatusCodeInterface
+final class HttpStatus implements StatusCodeInterface
 {
     /**
      * Allowed range for a valid HTTP status code.
@@ -376,12 +387,7 @@ class HttpStatus implements StatusCodeInterface
         ]]);
 
         if ($filteredCode === false) {
-            throw new InvalidArgumentException(\sprintf(
-                'The submitted code "%s" must be a positive integer between %s and %s.',
-                $code,
-                self::MINIMUM,
-                self::MAXIMUM
-            ));
+            throw new InvalidArgumentException(\sprintf('The submitted code "%s" must be a positive integer between %s and %s.', $code, self::MINIMUM, self::MAXIMUM));
         }
 
         return $code;

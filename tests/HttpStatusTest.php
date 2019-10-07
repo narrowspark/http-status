@@ -1,16 +1,31 @@
 <?php
+
 declare(strict_types=1);
+
+/**
+ * This file is part of Narrowspark Framework.
+ *
+ * (c) Daniel Bannert <d.bannert@anolilab.de>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Narrowspark\HttpStatus\Tests;
 
 use DOMDocument;
 use DomXPath;
 use Narrowspark\HttpStatus\Contract\Exception\HttpException as HttpExceptionContract;
 use Narrowspark\HttpStatus\Exception;
+use Narrowspark\HttpStatus\Exception\InvalidArgumentException;
+use Narrowspark\HttpStatus\Exception\OutOfBoundsException;
 use Narrowspark\HttpStatus\HttpStatus;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
+ *
+ * @small
  */
 final class HttpStatusTest extends TestCase
 {
@@ -110,7 +125,7 @@ final class HttpStatusTest extends TestCase
         429 => Exception\TooManyRequestsException::class,
         431 => Exception\RequestHeaderFieldsTooLargeException::class,
         451 => Exception\UnavailableForLegalReasonsException::class,
-        //Server Error 5xx
+        // Server Error 5xx
         500 => Exception\InternalServerErrorException::class,
         501 => Exception\NotImplementedException::class,
         502 => Exception\BadGatewayException::class,
@@ -127,7 +142,7 @@ final class HttpStatusTest extends TestCase
     public function testGetReasonMessage(): void
     {
         foreach ($this->errorPhrases as $code => $text) {
-            static::assertSame(
+            self::assertSame(
                 $text,
                 HttpStatus::getReasonMessage($code),
                 'Expected HttpStatus::getReasonMessage(' . $code . ') to return ' . $text
@@ -137,7 +152,7 @@ final class HttpStatusTest extends TestCase
 
     public function testGetReasonPhraseToThrowInvalidArgumentException(): void
     {
-        $this->expectException(\Narrowspark\HttpStatus\Exception\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The submitted code "700" must be a positive integer between 100 and 599.');
 
         HttpStatus::getReasonPhrase(700);
@@ -145,7 +160,7 @@ final class HttpStatusTest extends TestCase
 
     public function testGetReasonMessageToThrowInvalidArgumentException(): void
     {
-        $this->expectException(\Narrowspark\HttpStatus\Exception\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The submitted code "700" must be a positive integer between 100 and 599.');
 
         HttpStatus::getReasonMessage(700);
@@ -153,7 +168,7 @@ final class HttpStatusTest extends TestCase
 
     public function testGetReasonMessageToThrowOutOfBoundsException(): void
     {
-        $this->expectException(\Narrowspark\HttpStatus\Exception\OutOfBoundsException::class);
+        $this->expectException(OutOfBoundsException::class);
         $this->expectExceptionMessage('Unknown http status code: `509`.');
 
         HttpStatus::getReasonMessage(509);
@@ -161,7 +176,7 @@ final class HttpStatusTest extends TestCase
 
     public function testGetReasonExceptionToThrowOutOfBoundsException(): void
     {
-        $this->expectException(\Narrowspark\HttpStatus\Exception\OutOfBoundsException::class);
+        $this->expectException(OutOfBoundsException::class);
         $this->expectExceptionMessage('Unknown http status code: `509`.');
 
         HttpStatus::getReasonException(509);
@@ -169,7 +184,7 @@ final class HttpStatusTest extends TestCase
 
     public function testGetReasonPhraseToThrowOutOfBoundsException(): void
     {
-        $this->expectException(\Narrowspark\HttpStatus\Exception\OutOfBoundsException::class);
+        $this->expectException(OutOfBoundsException::class);
         $this->expectExceptionMessage('Unknown http status code: `509`.');
 
         HttpStatus::getReasonPhrase(509);
@@ -184,18 +199,18 @@ final class HttpStatusTest extends TestCase
             try {
                 HttpStatus::getReasonException((int) $data[0]);
             } catch (Exception\AbstractClientErrorException $client) {
-                static::assertInstanceOf($this->phrasesExceptions[$data[0]], $client);
+                self::assertInstanceOf($this->phrasesExceptions[$data[0]], $client);
 
                 $clientCount++;
             } catch (Exception\AbstractServerErrorException $server) {
-                static::assertInstanceOf($this->phrasesExceptions[$data[0]], $server);
+                self::assertInstanceOf($this->phrasesExceptions[$data[0]], $server);
 
                 $serverCount++;
             }
         }
 
-        static::assertSame(28, $clientCount);
-        static::assertSame(11, $serverCount);
+        self::assertSame(28, $clientCount);
+        self::assertSame(11, $serverCount);
     }
 
     /**
@@ -206,7 +221,7 @@ final class HttpStatusTest extends TestCase
      */
     public function testReasonPhraseDefaultsAgainstIana($code, $reasonPhrase): void
     {
-        static::assertEquals(
+        self::assertEquals(
             $reasonPhrase,
             HttpStatus::getReasonPhrase((int) $code),
             'Expected HttpStatus::getReasonPhrase(' . $code . ') to return ' . $reasonPhrase
@@ -223,14 +238,14 @@ final class HttpStatusTest extends TestCase
     {
         // skip http code from 100 to 399
         if ((100 <= $code) && ($code <= 399)) {
-            static::assertTrue(true);
+            self::assertTrue(true);
         }
 
         try {
             HttpStatus::getReasonException((int) $code);
         } catch (HttpExceptionContract $exception) {
-            static::assertSame($code . ' ' . $reasonPhrase, $exception->getMessage());
-            static::assertSame((int) $code, $exception->getStatusCode());
+            self::assertSame($code . ' ' . $reasonPhrase, $exception->getMessage());
+            self::assertSame((int) $code, $exception->getStatusCode());
         }
     }
 
@@ -241,34 +256,37 @@ final class HttpStatusTest extends TestCase
      * @copyright Copyright (c) 2015-2016 Zend Technologies USA Inc. (http://www.zend.com)
      * @license   https://github.com/zendframework/zend-diactoros/blob/master/LICENSE.md New BSD License
      */
-    public function ianaCodesReasonPhrasesProvider(): array
+    public function ianaCodesReasonPhrasesProvider(): iterable
     {
         if (! \in_array('https', \stream_get_wrappers(), true)) {
-            static::markTestSkipped('The "https" wrapper is not available');
+            self::markTestSkipped('The "https" wrapper is not available');
         }
 
         $ianaHttpStatusCodes = new DOMDocument();
 
         \libxml_set_streams_context(\stream_context_create([
             'http' => [
-                'method'  => 'GET',
+                'method' => 'GET',
                 'timeout' => 30,
+                'user_agent' => 'Narrowspark http-status phpunit agent',
             ],
         ]));
 
         $ianaHttpStatusCodes->load('https://www.iana.org/assignments/http-status-codes/http-status-codes.xml');
 
+        $context = null;
+
         if (! $ianaHttpStatusCodes->relaxNGValidate(__DIR__ . '/schema/http-status-codes.rng')) {
-            static::fail('Invalid IANA\'s HTTP status code list.');
+            self::fail('Invalid IANA\'s HTTP status code list.');
         }
 
         $ianaCodesReasonPhrases = [];
-        $xpath                  = new DomXPath($ianaHttpStatusCodes);
+        $xpath = new DomXPath($ianaHttpStatusCodes);
         $xpath->registerNamespace('ns', 'http://www.iana.org/assignments');
         $records = $xpath->query('//ns:record');
 
         foreach ($records as $record) {
-            $value       = $xpath->query('.//ns:value', $record)->item(0)->nodeValue;
+            $value = $xpath->query('.//ns:value', $record)->item(0)->nodeValue;
             $description = $xpath->query('.//ns:description', $record)->item(0)->nodeValue;
 
             if (\in_array($description, ['Unassigned', '(Unused)'], true)) {
@@ -289,9 +307,9 @@ final class HttpStatusTest extends TestCase
 
     public function testChangeExceptionMessage(): void
     {
-        $message   = 'new message';
+        $message = 'new message';
         $exception = new Exception\NotFoundException($message);
 
-        static::assertSame($message, $exception->getMessage());
+        self::assertSame($message, $exception->getMessage());
     }
 }
