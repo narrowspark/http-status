@@ -23,7 +23,7 @@
     ],
     "require": {
         "php": "^7.2",
-        "fig/http-message-util": "^1.1.2"
+        "fig/http-message-util": "^1.1.3"
     },
     "provide": {
         "psr/http-message-implementation": "^1.0"
