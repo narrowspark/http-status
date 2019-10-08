@@ -16,6 +16,6 @@ namespace Narrowspark\HttpStatus\Exception;
 use Narrowspark\HttpStatus\Contract\Exception\Exception as ExceptionContract;
 use OutOfBoundsException as BaseOutOfBoundsException;
 
-final class OutOfBoundsException extends BaseOutOfBoundsException implements ExceptionContract
+class OutOfBoundsException extends BaseOutOfBoundsException implements ExceptionContract
 {
 }

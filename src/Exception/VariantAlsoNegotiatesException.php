@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Narrowspark\HttpStatus\Exception;
 
-final class VariantAlsoNegotiatesException extends AbstractServerErrorException
+class VariantAlsoNegotiatesException extends AbstractServerErrorException
 {
     /** @var string */
     protected $message = '506 Variant Also Negotiates';

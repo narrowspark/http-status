@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Narrowspark\HttpStatus\Exception;
 
-final class ConflictException extends AbstractClientErrorException
+class ConflictException extends AbstractClientErrorException
 {
     /** @var string */
     protected $message = '409 Conflict';

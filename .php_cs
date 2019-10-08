@@ -11,6 +11,7 @@ with this source code in the file LICENSE.
 EOF;
 
 $config = new Config($header, [
+    'final_class' => false,
     'PhpCsFixerCustomFixers/no_commented_out_code' => false,
     'PhpCsFixerCustomFixers/phpdoc_no_superfluous_param' => false,
     'PhpCsFixerCustomFixers/data_provider_return_type' => true,
@@ -20,9 +21,6 @@ $config = new Config($header, [
     'PhpCsFixerCustomFixers/no_useless_sprintf' => true,
     'PhpCsFixerCustomFixers/php_unit_no_useless_return' => true,
     'PhpCsFixerCustomFixers/single_line_throw' => true,
-    'php_unit_test_case_static_method_calls' => [
-        'call_type' => 'self',
-    ],
 ]);
 $config->getFinder()
     ->files()

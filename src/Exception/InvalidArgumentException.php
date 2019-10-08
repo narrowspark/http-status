@@ -16,6 +16,6 @@ namespace Narrowspark\HttpStatus\Exception;
 use InvalidArgumentException as BaseInvalidArgumentException;
 use Narrowspark\HttpStatus\Contract\Exception\Exception as ExceptionContract;
 
-final class InvalidArgumentException extends BaseInvalidArgumentException implements ExceptionContract
+class InvalidArgumentException extends BaseInvalidArgumentException implements ExceptionContract
 {
 }

@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Narrowspark\HttpStatus\Exception;
 
-final class RequestHeaderFieldsTooLargeException extends AbstractClientErrorException
+class RequestHeaderFieldsTooLargeException extends AbstractClientErrorException
 {
     /** @var string */
     protected $message = '431 Request Header Fields Too Large';

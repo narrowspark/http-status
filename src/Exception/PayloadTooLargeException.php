@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Narrowspark\HttpStatus\Exception;
 
-final class PayloadTooLargeException extends AbstractClientErrorException
+class PayloadTooLargeException extends AbstractClientErrorException
 {
     /** @var string */
     protected $message = '413 Payload Too Large';

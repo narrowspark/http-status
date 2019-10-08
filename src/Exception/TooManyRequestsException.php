@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Narrowspark\HttpStatus\Exception;
 
-final class TooManyRequestsException extends AbstractClientErrorException
+class TooManyRequestsException extends AbstractClientErrorException
 {
     /** @var string */
     protected $message = '429 Too Many Requests';

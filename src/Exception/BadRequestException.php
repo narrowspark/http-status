@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Narrowspark\HttpStatus\Exception;
 
-final class BadRequestException extends AbstractClientErrorException
+class BadRequestException extends AbstractClientErrorException
 {
     /** @var string */
     protected $message = '400 Bad Request';

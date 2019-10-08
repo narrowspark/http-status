@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Narrowspark\HttpStatus\Exception;
 
-final class MisdirectedRequestException extends AbstractClientErrorException
+class MisdirectedRequestException extends AbstractClientErrorException
 {
     /** @var string */
     protected $message = '421 Misdirected Request';

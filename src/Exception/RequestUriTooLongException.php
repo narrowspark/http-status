@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Narrowspark\HttpStatus\Exception;
 
-final class RequestUriTooLongException extends AbstractClientErrorException
+class RequestUriTooLongException extends AbstractClientErrorException
 {
     /** @var string */
     protected $message = '414 URI Too Long';

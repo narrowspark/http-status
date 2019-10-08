@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Narrowspark\HttpStatus\Exception;
 
-final class InternalServerErrorException extends AbstractServerErrorException
+class InternalServerErrorException extends AbstractServerErrorException
 {
     /** @var string */
     protected $message = '500 Internal Server Error';

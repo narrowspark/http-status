@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Narrowspark\HttpStatus\Exception;
 
-final class ImATeapotException extends AbstractClientErrorException
+class ImATeapotException extends AbstractClientErrorException
 {
     /** @var string */
     protected $message = '418 I\'m a teapot';

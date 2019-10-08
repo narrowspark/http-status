@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Narrowspark\HttpStatus\Exception;
 
-final class PreconditionRequiredException extends AbstractClientErrorException
+class PreconditionRequiredException extends AbstractClientErrorException
 {
     /** @var string */
     protected $message = '428 Precondition Required';

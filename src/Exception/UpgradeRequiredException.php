@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Narrowspark\HttpStatus\Exception;
 
-final class UpgradeRequiredException extends AbstractClientErrorException
+class UpgradeRequiredException extends AbstractClientErrorException
 {
     /** @var string */
     protected $message = '426 Upgrade Required';

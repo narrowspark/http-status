@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Narrowspark\HttpStatus\Exception;
 
-final class LockedException extends AbstractClientErrorException
+class LockedException extends AbstractClientErrorException
 {
     /** @var string */
     protected $message = '423 Locked';

@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Narrowspark\HttpStatus\Exception;
 
-final class NotExtendedException extends AbstractServerErrorException
+class NotExtendedException extends AbstractServerErrorException
 {
     /** @var string */
     protected $message = '510 Not Extended';

@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Narrowspark\HttpStatus\Exception;
 
-final class LengthRequiredException extends AbstractClientErrorException
+class LengthRequiredException extends AbstractClientErrorException
 {
     /** @var string */
     protected $message = '411 Length Required';

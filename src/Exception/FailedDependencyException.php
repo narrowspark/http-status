@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Narrowspark\HttpStatus\Exception;
 
-final class FailedDependencyException extends AbstractClientErrorException
+class FailedDependencyException extends AbstractClientErrorException
 {
     /** @var string */
     protected $message = '424 Failed Dependency';

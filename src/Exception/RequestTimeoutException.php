@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Narrowspark\HttpStatus\Exception;
 
-final class RequestTimeoutException extends AbstractClientErrorException
+class RequestTimeoutException extends AbstractClientErrorException
 {
     /** @var string */
     protected $message = '408 Request Timeout';

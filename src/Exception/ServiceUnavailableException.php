@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Narrowspark\HttpStatus\Exception;
 
-final class ServiceUnavailableException extends AbstractServerErrorException
+class ServiceUnavailableException extends AbstractServerErrorException
 {
     /** @var string */
     protected $message = '503 Service Unavailable';

@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Narrowspark\HttpStatus\Exception;
 
-final class ProxyAuthenticationRequiredException extends AbstractClientErrorException
+class ProxyAuthenticationRequiredException extends AbstractClientErrorException
 {
     /** @var string */
     protected $message = '407 Proxy Authentication Required';

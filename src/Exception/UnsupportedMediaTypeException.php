@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Narrowspark\HttpStatus\Exception;
 
-final class UnsupportedMediaTypeException extends AbstractClientErrorException
+class UnsupportedMediaTypeException extends AbstractClientErrorException
 {
     /** @var string */
     protected $message = '415 Unsupported Media Type';

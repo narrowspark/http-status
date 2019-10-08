@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Narrowspark\HttpStatus\Exception;
 
-final class MethodNotAllowedException extends AbstractClientErrorException
+class MethodNotAllowedException extends AbstractClientErrorException
 {
     /** @var string */
     protected $message = '405 Method Not Allowed';

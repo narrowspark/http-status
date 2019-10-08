@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Narrowspark\HttpStatus\Exception;
 
-final class TooEarlyException extends AbstractClientErrorException
+class TooEarlyException extends AbstractClientErrorException
 {
     /** @var string */
     protected $message = '425 Too Early';

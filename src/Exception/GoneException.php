@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Narrowspark\HttpStatus\Exception;
 
-final class GoneException extends AbstractClientErrorException
+class GoneException extends AbstractClientErrorException
 {
     /** @var string */
     protected $message = '410 Gone';

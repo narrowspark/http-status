@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Narrowspark\HttpStatus\Exception;
 
-final class UnavailableForLegalReasonsException extends AbstractClientErrorException
+class UnavailableForLegalReasonsException extends AbstractClientErrorException
 {
     /** @var string */
     protected $message = '451 Unavailable For Legal Reasons';

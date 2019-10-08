@@ -57,7 +57,7 @@ use Narrowspark\HttpStatus\Exception\UnsupportedMediaTypeException;
 use Narrowspark\HttpStatus\Exception\UpgradeRequiredException;
 use Narrowspark\HttpStatus\Exception\VariantAlsoNegotiatesException;
 
-final class HttpStatus implements StatusCodeInterface
+class HttpStatus implements StatusCodeInterface
 {
     /**
      * Allowed range for a valid HTTP status code.

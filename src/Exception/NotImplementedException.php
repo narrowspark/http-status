@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Narrowspark\HttpStatus\Exception;
 
-final class NotImplementedException extends AbstractServerErrorException
+class NotImplementedException extends AbstractServerErrorException
 {
     /** @var string */
     protected $message = '501 Not Implemented';

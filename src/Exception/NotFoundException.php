@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Narrowspark\HttpStatus\Exception;
 
-final class NotFoundException extends AbstractClientErrorException
+class NotFoundException extends AbstractClientErrorException
 {
     /** @var string */
     protected $message = '404 Not Found';

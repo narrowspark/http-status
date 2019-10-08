@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Narrowspark\HttpStatus\Exception;
 
-final class LoopDetectedException extends AbstractServerErrorException
+class LoopDetectedException extends AbstractServerErrorException
 {
     /** @var string */
     protected $message = '508 Loop Detected';

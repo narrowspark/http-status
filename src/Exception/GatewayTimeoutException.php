@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Narrowspark\HttpStatus\Exception;
 
-final class GatewayTimeoutException extends AbstractServerErrorException
+class GatewayTimeoutException extends AbstractServerErrorException
 {
     /** @var string */
     protected $message = '504 Gateway Timeout';

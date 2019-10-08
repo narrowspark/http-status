@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Narrowspark\HttpStatus\Exception;
 
-final class InsufficientStorageException extends AbstractServerErrorException
+class InsufficientStorageException extends AbstractServerErrorException
 {
     /** @var string */
     protected $message = '507 Insufficient Storage';

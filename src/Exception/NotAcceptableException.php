@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Narrowspark\HttpStatus\Exception;
 
-final class NotAcceptableException extends AbstractClientErrorException
+class NotAcceptableException extends AbstractClientErrorException
 {
     /** @var string */
     protected $message = '406 Not Acceptable';

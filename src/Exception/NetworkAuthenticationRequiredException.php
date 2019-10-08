@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Narrowspark\HttpStatus\Exception;
 
-final class NetworkAuthenticationRequiredException extends AbstractServerErrorException
+class NetworkAuthenticationRequiredException extends AbstractServerErrorException
 {
     /** @var string */
     protected $message = '511 Network Authentication Required';
