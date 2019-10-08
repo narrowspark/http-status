@@ -1,5 +1,16 @@
 <?php
+
 declare(strict_types=1);
+
+/**
+ * This file is part of Narrowspark Framework.
+ *
+ * (c) Daniel Bannert <d.bannert@anolilab.de>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Narrowspark\HttpStatus\Exception;
 
 use Narrowspark\HttpStatus\Contract\Exception\HttpException as HttpExceptionContract;
@@ -8,19 +19,13 @@ use Throwable;
 
 abstract class AbstractServerErrorException extends BaseRuntimeException implements HttpExceptionContract
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $message = 'Server Error 5xx';
 
-    /**
-     * @var int
-     */
+    /** @var int */
     protected $statusCode = 5;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     private $headers;
 
     /**
@@ -31,14 +36,10 @@ abstract class AbstractServerErrorException extends BaseRuntimeException impleme
      * @param array           $headers
      * @param int             $code
      */
-    public function __construct(
-        string $message = null,
-        Throwable $previous = null,
-        array $headers = [],
-        int $code = 0
-    ) {
+    public function __construct(string $message = null, Throwable $previous = null, array $headers = [], int $code = 0)
+    {
         $this->headers = $headers;
-        $message       = $message ?? $this->message;
+        $message = $message ?? $this->message;
 
         parent::__construct($message, $code, $previous);
     }
